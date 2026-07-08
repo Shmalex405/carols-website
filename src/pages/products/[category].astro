@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import {
+  categories,
+  productsByCategory,
+  brands,
+  type Category,
+  type Product,
+} from '../../data/products';
+
+export function getStaticPaths() {
+  return categories.map((category) => ({
+    params: { category: category.slug },
+    props: { category, items: productsByCategory(category.slug) },
+  }));
+}
+
+interface Props {
+  category: Category;
+  items: Product[];
+}
+const { category, items } = Astro.props;
+
+// Which brands appear in this category (for the "browse full line" links + filter)
+const brandKeys = [...new Set(items.map((p) => p.brand))];
+const brandCounts = brandKeys
+  .map((k) => ({ key: k, name: brands[k].name, count: items.filter((p) => p.brand === k).length }))
+  .sort((a, b) => b.count - a.count);
+const otherCategories = categories.filter((c) => c.slug !== category.slug);
+---
+
+<BaseLayout title={category.title} description={category.description}>
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div
+      class="absolute inset-0 -z-10"
+      style={`background-image: linear-gradient(150deg, ${category.tint[0]}, ${category.tint[1]});`}
+    >
+    </div>
+    <div class="mx-auto max-w-4xl px-6 py-16 lg:py-20">
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm text-plum-soft">
+        <a href="/products" class="no-underline hover:text-brand-deep">Products</a>
+        <span aria-hidden="true" class="px-1.5">/</span>
+        <span class="text-plum">{category.title}</span>
+      </nav>
+      <h1 class="text-4xl sm:text-5xl">{category.title}</h1>
+      <p class="mt-5 max-w-2xl text-lg text-plum-soft">{category.description}</p>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="mx-auto max-w-6xl px-6 py-14">
+    {items.length > 0 ? (
+      <>
+        {brandCounts.length > 1 && (
+          <div class="mb-6 flex flex-wrap items-center gap-2" id="brand-filter" role="group" aria-label="Filter by brand">
+            <button type="button" data-filter="all" class="filter-chip is-active">
+              All <span class="opacity-60">({items.length})</span>
+            </button>
+            {brandCounts.map((b) => (
+              <button type="button" data-filter={b.key} class="filter-chip">
+                {b.name} <span class="opacity-60">({b.count})</span>
+              </button>
+            ))}
+          </div>
+        )}
+        <p id="result-count" class="mb-5 text-sm text-plum-mute" aria-live="polite">
+          Showing all {items.length} products
+        </p>
+        <div id="product-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((p) => (
+            <div class="product-item" data-brand={p.brand}>
+              <ProductCard product={p} />
+            </div>
+          ))}
+        </div>
+      </>
+    ) : (
+      <p class="text-plum-soft">
+        We carry more in this category than we’ve listed here — please
+        <a href="/contact#inquiry" class="font-semibold text-brand-deep">ask Jen</a> about your needs.
+      </p>
+    )}
+
+    <!-- Curated note + browse full lines -->
+    <div class="mt-12 rounded-2xl border border-blush-deep/60 bg-ivory p-6 sm:p-8">
+      <h2 class="text-xl text-plum">Looking for something specific?</h2>
+      <p class="mt-2 max-w-2xl text-plum-soft">
+        This is a curated selection — we can order the full range from every line we carry. Browse a
+        brand’s complete collection below, then bring what you love to your fitting, or just tell Jen
+        what you have in mind.
+      </p>
+      {brandKeys.length > 0 && (
+        <ul class="mt-5 flex flex-wrap gap-3">
+          {brandKeys.map((key) => (
+            <li>
+              <a
+                href={brands[key].url}
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-1.5 rounded-full bg-blush px-4 py-2 text-sm font-semibold text-brand-deep no-underline transition-colors hover:bg-blush-deep"
+              >
+                Browse all {brands[key].name}
+                <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                  <path d="M5 3h8v8M13 3L4 12" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="mx-auto max-w-5xl px-6 pb-8">
+    <div class="rounded-[2rem] bg-gradient-to-br from-brand to-brand-deep px-8 py-12 text-center shadow-xl">
+      <h2 class="text-3xl text-ivory">Ready for a personal fitting?</h2>
+      <p class="mx-auto mt-3 max-w-xl text-blush">
+        Jen will help you find the right {category.title.toLowerCase()} and fit them beautifully.
+      </p>
+      <div class="mt-7 flex flex-wrap justify-center gap-3">
+        <Button href="/book" variant="secondary" size="lg">Book an Appointment</Button>
+        <Button href="/contact#inquiry" variant="ghost" size="lg" class="!text-ivory !ring-ivory/50 hover:!bg-ivory/10">Ask Jen a Question</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explore other categories -->
+  <section class="mx-auto max-w-6xl px-6 py-12">
+    <h2 class="text-2xl text-plum">Explore more</h2>
+    <div class="mt-5 flex flex-wrap gap-3">
+      {otherCategories.map((c) => (
+        <a
+          href={`/products/${c.slug}`}
+          class="rounded-full border border-blush-deep/60 bg-ivory px-4 py-2 text-sm font-semibold text-plum no-underline transition-colors hover:bg-blush hover:text-brand-deep"
+        >
+          {c.title}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <style>
+    .filter-chip {
+      border-radius: 9999px;
+      border: 1px solid color-mix(in srgb, var(--color-blush-deep) 70%, transparent);
+      background: var(--color-ivory);
+      color: var(--color-plum);
+      padding: 0.375rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .filter-chip:hover { background: var(--color-blush); }
+    .filter-chip.is-active {
+      background: var(--color-brand);
+      color: var(--color-ivory);
+      border-color: transparent;
+    }
+  </style>
+
+  <script>
+    const items = [...document.querySelectorAll('#product-grid .product-item')];
+    const chips = [...document.querySelectorAll('#brand-filter .filter-chip')];
+    const count = document.getElementById('result-count');
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        const f = chip.dataset.filter;
+        let shown = 0;
+        items.forEach((it) => {
+          const show = f === 'all' || it.dataset.brand === f;
+          it.style.display = show ? '' : 'none';
+          if (show) shown++;
+        });
+        if (count) {
+          const label = f === 'all' ? '' : (chip.textContent || '').replace(/\s*\(\d+\)\s*$/, '').trim();
+          count.textContent = f === 'all' ? `Showing all ${shown} products` : `Showing ${shown} ${label} products`;
+        }
+      });
+    });
+  </script>
+</BaseLayout>

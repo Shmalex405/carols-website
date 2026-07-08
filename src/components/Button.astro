@@ -1,0 +1,26 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'md' | 'lg';
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, variant = 'primary', size = 'md', class: cls = '', ...rest } = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-wide no-underline transition-all duration-200 hover:-translate-y-0.5';
+const variants: Record<string, string> = {
+  primary: 'bg-brand text-ivory shadow-sm hover:bg-brand-deep hover:shadow-md',
+  secondary: 'bg-sage text-ivory shadow-sm hover:bg-sage-deep hover:shadow-md',
+  ghost: 'bg-transparent text-brand-deep ring-1 ring-brand/40 hover:bg-blush hover:ring-brand/70',
+};
+const sizes: Record<string, string> = {
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-7 py-3.5 text-base',
+};
+---
+
+<a href={href} class={`${base} ${variants[variant]} ${sizes[size]} ${cls}`} {...rest}>
+  <slot />
+</a>

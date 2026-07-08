@@ -1,0 +1,207 @@
+---
+import { forms, booking, contact } from '../config';
+
+/**
+ * Friendly "Ask Jen" inquiry form — NOT a checkout.
+ * Submits to Web3Forms (emails Jen). On success, reveals the booking link.
+ * The access key is a public client key by design (safe to ship in HTML).
+ * If no key is configured yet, submitting shows a call/email fallback.
+ */
+const bookingUrl = booking.googleCalendarUrl;
+---
+
+<div id="inquiry" class="scroll-mt-24">
+  <form
+    id="inquiry-form"
+    class="rounded-[1.75rem] border border-blush-deep/60 bg-ivory p-6 shadow-sm sm:p-8"
+    data-access-key={forms.web3formsAccessKey}
+    data-endpoint={forms.endpoint}
+    data-booking={bookingUrl}
+  >
+    <!-- Web3Forms fields -->
+    <input type="hidden" name="subject" value="New inquiry from carolsutah.com" />
+    <input type="hidden" name="from_name" value="Carol's Website" />
+    <!-- Honeypot: bots fill this, humans don't -->
+    <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+    <div class="grid gap-5 sm:grid-cols-2">
+      <label class="block">
+        <span class="text-sm font-semibold text-plum">Your name <span class="text-brand">*</span></span>
+        <input
+          required
+          name="name"
+          type="text"
+          autocomplete="name"
+          class="mt-1.5 w-full rounded-xl border border-blush-deep/70 bg-cream/50 px-4 py-2.5 text-plum outline-none focus:border-brand focus:ring-2 focus:ring-brand/30"
+        />
+      </label>
+
+      <label class="block">
+        <span class="text-sm font-semibold text-plum">Email <span class="text-brand">*</span></span>
+        <input
+          required
+          name="email"
+          type="email"
+          autocomplete="email"
+          class="mt-1.5 w-full rounded-xl border border-blush-deep/70 bg-cream/50 px-4 py-2.5 text-plum outline-none focus:border-brand focus:ring-2 focus:ring-brand/30"
+        />
+      </label>
+
+      <label class="block">
+        <span class="text-sm font-semibold text-plum">Phone <span class="font-normal text-plum-mute">(optional)</span></span>
+        <input
+          name="phone"
+          type="tel"
+          autocomplete="tel"
+          class="mt-1.5 w-full rounded-xl border border-blush-deep/70 bg-cream/50 px-4 py-2.5 text-plum outline-none focus:border-brand focus:ring-2 focus:ring-brand/30"
+        />
+      </label>
+
+      <label class="block">
+        <span class="text-sm font-semibold text-plum">Best way to reach you</span>
+        <select
+          name="preferred_contact"
+          class="mt-1.5 w-full rounded-xl border border-blush-deep/70 bg-cream/50 px-4 py-2.5 text-plum outline-none focus:border-brand focus:ring-2 focus:ring-brand/30"
+        >
+          <option>Email</option>
+          <option>Phone call</option>
+          <option>Text message</option>
+        </select>
+      </label>
+    </div>
+
+    <label class="mt-5 block">
+      <span class="text-sm font-semibold text-plum">What are you interested in?</span>
+      <input
+        id="interest-field"
+        name="interested_in"
+        type="text"
+        placeholder="e.g. breast forms, a fitting, a specific product…"
+        class="mt-1.5 w-full rounded-xl border border-blush-deep/70 bg-cream/50 px-4 py-2.5 text-plum outline-none focus:border-brand focus:ring-2 focus:ring-brand/30"
+      />
+    </label>
+
+    <label class="mt-5 block">
+      <span class="text-sm font-semibold text-plum">Anything you'd like Jen to know?</span>
+      <textarea
+        name="message"
+        rows="4"
+        placeholder="Share as much or as little as you'd like — where you are in your journey, questions, or how we can help."
+        class="mt-1.5 w-full rounded-xl border border-blush-deep/70 bg-cream/50 px-4 py-2.5 text-plum outline-none focus:border-brand focus:ring-2 focus:ring-brand/30"
+      ></textarea>
+    </label>
+
+    <div class="mt-6 flex flex-wrap items-center gap-4">
+      <button
+        type="submit"
+        id="inquiry-submit"
+        class="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-3 font-semibold text-ivory transition-all hover:-translate-y-0.5 hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        Send to Jen
+      </button>
+      <p class="text-xs text-plum-mute">
+        Your note goes straight to Jen — no account, no obligation. We never share your information.
+      </p>
+    </div>
+
+    <p id="inquiry-error" class="mt-4 hidden text-sm font-semibold text-brand-deep" role="alert"></p>
+  </form>
+
+  <!-- Success state -->
+  <div
+    id="inquiry-success"
+    hidden
+    class="rounded-[1.75rem] border border-sage/40 bg-sage-soft/30 p-8 text-center shadow-sm"
+  >
+    <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sage text-ivory">
+      <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+    <h3 class="mt-4 text-2xl text-plum">Thank you — your note is on its way to Jen.</h3>
+    <p class="mx-auto mt-2 max-w-md text-plum-soft">
+      She’ll be in touch soon. Would you like to go ahead and reserve a private appointment now?
+    </p>
+    <div class="mt-6 flex flex-wrap justify-center gap-3">
+      <a href="/book" class="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 font-semibold text-ivory no-underline hover:bg-brand-deep">
+        Book an Appointment
+      </a>
+      <a href={contact.phoneHref} class="inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold text-brand-deep no-underline ring-1 ring-brand/30 hover:bg-blush">
+        Call {contact.phone}
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('inquiry-form') as HTMLFormElement | null;
+  const successBox = document.getElementById('inquiry-success');
+  const errorEl = document.getElementById('inquiry-error');
+  const submitBtn = document.getElementById('inquiry-submit') as HTMLButtonElement | null;
+  const interest = document.getElementById('interest-field') as HTMLInputElement | null;
+
+  // Prefill "interested in" from a ?product= query param (e.g. from a product card)
+  if (interest) {
+    const params = new URLSearchParams(window.location.search);
+    const product = params.get('product');
+    if (product) interest.value = product;
+  }
+
+  function showError(msg: string) {
+    if (!errorEl) return;
+    errorEl.textContent = msg;
+    errorEl.hidden = false;
+    errorEl.classList.remove('hidden');
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form) return;
+    const accessKey = form.dataset.accessKey?.trim();
+    const endpoint = form.dataset.endpoint;
+
+    // Honeypot
+    const honeypot = form.querySelector<HTMLInputElement>('input[name="botcheck"]');
+    if (honeypot?.checked) return;
+
+    if (!accessKey || !endpoint) {
+      showError(
+        'Our online form isn’t connected just yet — please call 435-688-0452 or email Jen@carolsutah.com and we’ll take care of you right away.',
+      );
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+    }
+    if (errorEl) errorEl.hidden = true;
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    (data as Record<string, string>).access_key = accessKey;
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (json.success) {
+        form.hidden = true;
+        if (successBox) successBox.hidden = false;
+        successBox?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        throw new Error(json.message || 'Submission failed');
+      }
+    } catch (err) {
+      showError(
+        'Something went wrong sending your note. Please call 435-688-0452 or email Jen@carolsutah.com — we’d love to hear from you.',
+      );
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send to Jen';
+      }
+    }
+  });
+</script>

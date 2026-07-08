@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+
+const steps = [
+  {
+    n: '01',
+    title: 'A warm welcome',
+    body: 'You’ll be greeted by name into a private, comfortable room — never a busy sales floor. We’ll sit, talk, and get to know where you are in your journey. There’s no rush and no script.',
+  },
+  {
+    n: '02',
+    title: 'A gentle, expert fitting',
+    body: 'Jen measures and fits with care and skill, helping you try options until something feels balanced, secure, and right. Modesty and comfort come first, always.',
+  },
+  {
+    n: '03',
+    title: 'Finding your match',
+    body: 'Together you’ll narrow down forms, bras, or compression that suit your body and your life. Jen orders exactly what fits you best — no guessing from a screen.',
+  },
+  {
+    n: '04',
+    title: 'Insurance, handled with care',
+    body: 'We’ll help you understand your benefits and take care of the paperwork so coverage is as smooth as possible. You focus on feeling like yourself again.',
+  },
+];
+---
+
+<BaseLayout
+  title="What to Expect"
+  description="What a fitting appointment at Carol's is like — private, unhurried, expert, and kind, from your first hello through insurance paperwork."
+>
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-blush to-cream"></div>
+    <div class="mx-auto max-w-3xl px-6 py-20 text-center lg:py-24">
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-sage-deep">What to Expect</p>
+      <h1 class="mt-3 text-4xl sm:text-5xl">Your visit, from hello to home</h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-plum-soft">
+        If you’ve never been fitted before, it’s natural to feel unsure. Here’s exactly what happens —
+        so you can walk in knowing you’re in gentle, capable hands.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-6 py-10">
+    <ol class="space-y-6">
+      {steps.map((s) => (
+        <li class="flex gap-6 rounded-2xl border border-blush-deep/50 bg-ivory p-6 shadow-sm sm:p-8">
+          <span class="font-display text-3xl text-brand-soft sm:text-4xl">{s.n}</span>
+          <div>
+            <h2 class="text-xl text-plum sm:text-2xl">{s.title}</h2>
+            <p class="mt-2 text-plum-soft">{s.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- Reassurance band -->
+  <section class="bg-plum/[0.03]">
+    <div class="mx-auto max-w-4xl px-6 py-16 text-center">
+      <p class="font-display text-2xl italic leading-snug text-plum sm:text-3xl">
+        “You are not a size or an order number here. You’re a woman we’re honored to care for.”
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button href="/book" size="lg">Book an Appointment</Button>
+        <Button href="/faq" variant="ghost" size="lg">Read FAQ &amp; Insurance</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

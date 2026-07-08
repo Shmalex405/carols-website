@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import { people } from '../config';
+
+const timeline = [
+  {
+    year: '1985',
+    title: 'Carol opens her doors',
+    body: 'Carol Stenquist founds Carol’s Post Mastectomy Specialist in Salt Lake City, wanting to specialize in women’s needs through the difficult days of a mastectomy or lumpectomy.',
+  },
+  {
+    year: '2000',
+    title: 'Growing the circle of care',
+    body: 'The care Carol built reaches further as a location opens in Henderson, Nevada.',
+  },
+  {
+    year: '2005',
+    title: 'Coming to St. George',
+    body: 'Carol’s opens in St. George, Utah — the home our community still knows today.',
+  },
+  {
+    year: '2011',
+    title: 'Carrying the legacy forward',
+    body: 'After Carol’s passing, her daughter Jen feels even stronger about the service her mother began — and continues it with the same heart.',
+  },
+  {
+    year: 'Today',
+    title: 'Still, it’s personal',
+    body: 'Jen serves as a Certified Mastectomy Fitter with more than 20 years of experience, welcoming each woman as her mother once did.',
+  },
+];
+---
+
+<BaseLayout
+  title="Our Story"
+  description="Carol's Post Mastectomy Specialist began in 1985 with Carol Stenquist and continues today with her daughter, Certified Mastectomy Fitter Jen Flowers — a legacy of love and compassion."
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-blush to-cream"></div>
+    <div class="mx-auto max-w-3xl px-6 py-20 text-center lg:py-24">
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-sage-deep">Our Story</p>
+      <h1 class="mt-3 text-4xl sm:text-5xl lg:text-6xl">A daughter’s promise, a mother’s love</h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-plum-soft">
+        For four decades, Carol’s has been a place where women facing breast cancer find not just
+        the right fit — but comfort, dignity, and someone who truly understands.
+      </p>
+    </div>
+  </section>
+
+  <!-- Carol -->
+  <section class="mx-auto max-w-6xl px-6 py-12">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <!-- PHOTO SLOT: Carol Stenquist -->
+      <div class="aspect-[4/5] rounded-[2rem] bg-gradient-to-br from-brand-soft/40 via-blush to-cream shadow-lg ring-1 ring-ivory/60"></div>
+      <div>
+        <h2 class="text-3xl sm:text-4xl">It began with Carol</h2>
+        <div class="mt-5 space-y-4 text-plum-soft prose-measure">
+          <p>
+            In 1985, <strong class="font-semibold text-plum">Carol Stenquist</strong> opened Carol’s
+            Post Mastectomy Specialist in Salt Lake City. She wanted to create something the world
+            didn’t have enough of — a place devoted entirely to women’s needs during the difficult
+            time of a mastectomy or lumpectomy.
+          </p>
+          <p>
+            More than a shop, she imagined a place where the ladies would feel a particular kind of
+            care: <em>the love and compassion that only comes from a survivor.</em> Over more than
+            twenty years, she fitted breast forms, bras, swimwear, and lymphedema products — but what
+            women remembered was how she made them feel.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pull quote -->
+  <section class="mx-auto max-w-4xl px-6 py-12">
+    <blockquote class="rounded-[2rem] bg-plum px-8 py-12 text-center">
+      <p class="font-display text-2xl italic leading-snug text-ivory sm:text-3xl">
+        “To help them feel the love and compassion that I feel for each and every one of them.”
+      </p>
+      <footer class="mt-5 text-sm uppercase tracking-[0.18em] text-blush/70">Our mission, then and now</footer>
+    </blockquote>
+  </section>
+
+  <!-- Jen -->
+  <section class="mx-auto max-w-6xl px-6 py-12">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div class="order-2 lg:order-1">
+        <h2 class="text-3xl sm:text-4xl">And continues with Jen</h2>
+        <div class="mt-5 space-y-4 text-plum-soft prose-measure">
+          <p>
+            Carol’s daughter, <strong class="font-semibold text-plum">{people.fitterName}</strong>,
+            grew up watching her mother’s compassionate work — and saw the love she had for her
+            ladies. Carol taught her everything she knew about serving women with any breast care
+            need, and Jen became a <strong class="font-semibold text-plum">Certified Mastectomy
+            Fitter</strong>, expanding the practice to Henderson, Nevada and then St. George.
+          </p>
+          <p>
+            When Carol passed in 2011, Jen felt even more strongly about the wonderful service her
+            mother had started. She has carried the legacy forward ever since — now with over 20
+            years of her own experience, and certification in fitting lymphedema products too.
+          </p>
+          <p>
+            To this day, Jen considers it a genuine pleasure to serve the ladies with all their
+            breast care needs — one unhurried, private appointment at a time.
+          </p>
+        </div>
+        <div class="mt-7">
+          <Button href="/book">Meet Jen — Book an Appointment</Button>
+        </div>
+      </div>
+      <!-- PHOTO SLOT: Jen Flowers -->
+      <div class="order-1 aspect-[4/5] rounded-[2rem] bg-gradient-to-tr from-sage-soft/50 via-cream to-blush shadow-lg ring-1 ring-ivory/60 lg:order-2"></div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="bg-plum/[0.03]">
+    <div class="mx-auto max-w-4xl px-6 py-16">
+      <h2 class="text-center text-3xl sm:text-4xl">Four decades of care</h2>
+      <ol class="mt-12 space-y-8">
+        {timeline.map((t) => (
+          <li class="grid grid-cols-[4.5rem_1fr] gap-5 sm:grid-cols-[7rem_1fr] sm:gap-8">
+            <div class="text-right">
+              <span class="font-display text-2xl text-brand-deep sm:text-3xl">{t.year}</span>
+            </div>
+            <div class="relative border-l-2 border-brand-soft/50 pb-2 pl-6">
+              <span class="absolute -left-[7px] top-1.5 h-3 w-3 rounded-full bg-brand"></span>
+              <h3 class="text-xl text-plum">{t.title}</h3>
+              <p class="mt-1 text-plum-soft">{t.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="mx-auto max-w-3xl px-6 py-20 text-center">
+    <h2 class="text-3xl sm:text-4xl">We’d be honored to care for you</h2>
+    <p class="mx-auto mt-4 max-w-xl text-plum-soft">
+      Whether you’re newly diagnosed, recovering, or ready for a new fitting, you’ll be welcomed with
+      warmth and given all the time you need.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <Button href="/book" size="lg">Book an Appointment</Button>
+      <Button href="/products" variant="ghost" size="lg">Explore Products</Button>
+    </div>
+  </section>
+</BaseLayout>

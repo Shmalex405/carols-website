@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { categories, brands, featuredProducts } from '../../data/products';
+
+const featured = featuredProducts();
+const brandList = Object.values(brands);
+---
+
+<BaseLayout
+  title="Products"
+  description="Browse breast forms, mastectomy bras, camisoles, swimwear, turbans, and lymphedema compression from Amoena, American Breast Care, Trulife, Nearly Me, Almost U, and Juzo — fitted in person by Jen."
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-blush to-cream"></div>
+    <div class="mx-auto max-w-4xl px-6 py-16 text-center lg:py-20">
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-sage-deep">What we carry</p>
+      <h1 class="mt-3 text-4xl sm:text-5xl">Beautiful, trusted products — fitted just for you</h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-plum-soft">
+        Browse the lines we carry to see what feels right. There’s no cart and no checkout — when
+        something catches your eye, tell Jen or book a fitting, and she’ll help you find your
+        perfect match and order it in your size.
+      </p>
+    </div>
+  </section>
+
+  <!-- Brands strip -->
+  <section class="mx-auto max-w-6xl px-6 py-6">
+    <p class="text-center text-xs font-semibold uppercase tracking-[0.18em] text-plum-mute">
+      Trusted brands we carry
+    </p>
+    <ul class="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+      {brandList.map((b) => (
+        <li>
+          <a
+            href={b.url}
+            target="_blank"
+            rel="noopener"
+            class="font-display text-xl text-plum/60 no-underline transition-colors hover:text-brand-deep sm:text-2xl"
+          >
+            {b.name}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Category grid -->
+  <section class="mx-auto max-w-6xl px-6 py-10">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {categories.map((cat) => (
+        <a
+          href={`/products/${cat.slug}`}
+          class="group relative flex min-h-56 flex-col justify-end overflow-hidden rounded-2xl p-6 no-underline shadow-sm ring-1 ring-blush-deep/50 transition-all hover:-translate-y-1 hover:shadow-lg"
+          style={`background-image: linear-gradient(140deg, ${cat.tint[0]}, ${cat.tint[1]});`}
+        >
+          <h2 class="text-2xl text-plum">{cat.title}</h2>
+          <p class="mt-1 text-sm text-plum-soft">{cat.short}</p>
+          <span class="mt-3 text-sm font-semibold text-brand-deep">
+            Explore <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Featured -->
+  {featured.length > 0 && (
+    <section class="mx-auto max-w-6xl px-6 py-12">
+      <div class="mb-8 max-w-2xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-deep">A few favorites</p>
+        <h2 class="mt-2 text-3xl sm:text-4xl">Popular with our ladies</h2>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {featured.map((p) => <ProductCard product={p} />)}
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="mx-auto max-w-5xl px-6 py-12">
+    <div class="rounded-[2rem] bg-gradient-to-br from-sage to-sage-deep px-8 py-12 text-center shadow-xl">
+      <h2 class="text-3xl text-ivory">Not sure where to start?</h2>
+      <p class="mx-auto mt-3 max-w-xl text-sage-soft">
+        That’s exactly what Jen is here for. Book a private appointment and she’ll guide you to what
+        suits you best — no guesswork, no pressure.
+      </p>
+      <div class="mt-7 flex flex-wrap justify-center gap-3">
+        <Button href="/book" variant="secondary" size="lg" class="!bg-ivory !text-sage-deep hover:!bg-blush">Book an Appointment</Button>
+        <Button href="/contact" variant="ghost" size="lg" class="!text-ivory !ring-ivory/50 hover:!bg-ivory/10">Ask a Question</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

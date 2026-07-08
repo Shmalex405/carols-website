@@ -1,0 +1,122 @@
+---
+import { nav } from '../config';
+import Button from './Button.astro';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path === href || path.startsWith(href + '/');
+---
+
+<header class="sticky top-0 z-50 border-b border-blush-deep/60 bg-cream/90 backdrop-blur-md">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
+    <!-- Logo -->
+    <a href="/" class="group flex flex-col leading-none no-underline" aria-label="Carol's Post Mastectomy Specialist — Home">
+      <span class="font-display text-2xl font-medium text-brand-deep transition-colors group-hover:text-brand sm:text-[1.7rem]">Carol's</span>
+      <span class="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-plum-soft">Post Mastectomy Specialist</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav aria-label="Primary" class="hidden items-center gap-1 lg:flex">
+      {nav.map((item) =>
+        item.children ? (
+          <div class="group relative">
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+              class:list={[
+                'flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-semibold no-underline transition-colors',
+                isActive(item.href) ? 'text-brand-deep' : 'text-plum hover:text-brand-deep',
+              ]}
+            >
+              {item.label}
+              <svg class="h-3 w-3 opacity-60 transition-transform group-hover:rotate-180" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="invisible absolute left-0 top-full pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+              <ul class="w-64 rounded-2xl border border-blush-deep/60 bg-ivory p-2 shadow-xl shadow-plum/10">
+                {item.children.map((child) => (
+                  <li>
+                    <a
+                      href={child.href}
+                      class="block rounded-xl px-3 py-2 text-sm text-plum no-underline transition-colors hover:bg-blush hover:text-brand-deep"
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class:list={[
+              'rounded-full px-3.5 py-2 text-sm font-semibold no-underline transition-colors',
+              isActive(item.href) ? 'text-brand-deep' : 'text-plum hover:text-brand-deep',
+            ]}
+          >
+            {item.label}
+          </a>
+        )
+      )}
+    </nav>
+
+    <div class="hidden lg:block">
+      <Button href="/book" size="md">Book an Appointment</Button>
+    </div>
+
+    <!-- Mobile toggle -->
+    <button
+      id="nav-toggle"
+      type="button"
+      class="flex h-11 w-11 items-center justify-center rounded-full text-plum hover:bg-blush lg:hidden"
+      aria-label="Open menu"
+      aria-controls="mobile-nav"
+      aria-expanded="false"
+    >
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile nav panel -->
+  <div id="mobile-nav" hidden class="border-t border-blush-deep/60 bg-cream lg:hidden">
+    <nav aria-label="Mobile" class="mx-auto max-w-6xl px-6 py-4">
+      <ul class="space-y-1">
+        {nav.map((item) => (
+          <li>
+            <a href={item.href} class="block rounded-xl px-3 py-2.5 text-base font-semibold text-plum no-underline hover:bg-blush">
+              {item.label}
+            </a>
+            {item.children && (
+              <ul class="mb-1 ml-3 border-l border-blush-deep/60 pl-3">
+                {item.children.map((child) => (
+                  <li>
+                    <a href={child.href} class="block rounded-lg px-3 py-2 text-sm text-plum-soft no-underline hover:bg-blush hover:text-brand-deep">
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+      <div class="mt-3">
+        <Button href="/book" size="lg" class="w-full">Book an Appointment</Button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const panel = document.getElementById('mobile-nav');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    toggle.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
+    if (panel) panel.hidden = open;
+  });
+</script>

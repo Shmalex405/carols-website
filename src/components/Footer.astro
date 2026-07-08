@@ -1,0 +1,76 @@
+---
+import { site, contact, social, nav, people } from '../config';
+const year = 2026;
+---
+
+<footer class="mt-24 bg-plum text-blush">
+  <div class="mx-auto grid max-w-6xl gap-12 px-6 py-16 sm:grid-cols-2 lg:grid-cols-4">
+    <!-- Brand -->
+    <div class="lg:col-span-1">
+      <p class="font-display text-2xl text-ivory">Carol's</p>
+      <p class="text-sm tracking-wide text-blush/70">Post Mastectomy Specialist</p>
+      <p class="mt-4 max-w-xs text-sm leading-relaxed text-blush/80">
+        Dignified, one-on-one care for every step of your journey — a legacy of compassion since 1985.
+      </p>
+    </div>
+
+    <!-- Explore -->
+    <nav aria-label="Footer" class="text-sm">
+      <h2 class="font-display text-lg text-ivory">Explore</h2>
+      <ul class="mt-4 space-y-2">
+        {nav.map((item) => (
+          <li>
+            <a class="text-blush/80 no-underline hover:text-ivory hover:underline" href={item.href}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+        <li>
+          <a class="text-blush/80 no-underline hover:text-ivory hover:underline" href="/book">
+            Book an Appointment
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Visit -->
+    <div class="text-sm">
+      <h2 class="font-display text-lg text-ivory">Visit Us</h2>
+      <address class="mt-4 space-y-1 not-italic text-blush/80">
+        <p>{contact.address.line1}</p>
+        <p>{contact.address.line2}</p>
+        <p>{contact.address.city}, {contact.address.state} {contact.address.zip}</p>
+      </address>
+      <dl class="mt-4 space-y-1 text-blush/80">
+        {contact.hours.map((h) => (
+          <div class="flex justify-between gap-4">
+            <dt>{h.days}</dt>
+            <dd>{h.time}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="mt-3 text-xs text-blush/60">{contact.hoursNote}</p>
+    </div>
+
+    <!-- Connect -->
+    <div class="text-sm">
+      <h2 class="font-display text-lg text-ivory">Connect</h2>
+      <ul class="mt-4 space-y-2 text-blush/80">
+        <li><a class="no-underline hover:text-ivory hover:underline" href={contact.phoneHref}>{contact.phone}</a></li>
+        <li><a class="no-underline hover:text-ivory hover:underline" href={contact.emailHref}>{contact.email}</a></li>
+      </ul>
+      <div class="mt-4 flex gap-3">
+        <a href={social.instagram} aria-label="Instagram" target="_blank" rel="noopener" class="text-blush/70 hover:text-ivory">Instagram</a>
+        <span aria-hidden="true" class="text-blush/30">·</span>
+        <a href={social.facebook} aria-label="Facebook" target="_blank" rel="noopener" class="text-blush/70 hover:text-ivory">Facebook</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-blush/15">
+    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-6 text-xs text-blush/60 sm:flex-row sm:items-center sm:justify-between">
+      <p>&copy; {year} {site.name}. In loving memory of {people.founderName}.</p>
+      <p>Carol's is a fitting specialist &amp; reseller — we help you find the right products, then fit them in person. We are not an online store.</p>
+    </div>
+  </div>
+</footer>

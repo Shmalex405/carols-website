@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import { contact } from '../config';
+
+const faqs = [
+  {
+    q: 'Do I need an appointment?',
+    a: 'Yes, please — Carol’s is by appointment only so that Jen can give you her complete, private attention. Appointments are available Monday through Thursday. Call 435-688-0452, email Jen@carolsutah.com, or book online.',
+  },
+  {
+    q: 'Does insurance or Medicare cover breast forms and bras?',
+    a: 'In most cases, yes. Medicare and many private insurance plans cover post-mastectomy breast prostheses (forms) and mastectomy bras when prescribed. Coverage amounts and how often items can be replaced vary by plan. Bring your prescription and insurance information to your appointment and we’ll help you understand your specific benefits before anything is ordered.',
+  },
+  {
+    q: 'Do I need a prescription?',
+    a: 'For insurance or Medicare to help pay, a prescription from your doctor for a “breast prosthesis and post-mastectomy bras” is usually required. If you don’t have one yet, come in anyway — we can talk through what you’ll need and help you get set up.',
+  },
+  {
+    q: 'How often can I get a new breast form or bras?',
+    a: 'Most plans allow replacement of a silicone breast form and a certain number of mastectomy bras on a regular schedule. The exact timing depends on your insurance. We’ll help you keep track and let you know when you’re eligible for new items.',
+  },
+  {
+    q: 'What should I bring to my fitting?',
+    a: 'A prescription (if you have one), your insurance card, and a comfortable, easy-to-change top. That’s it — Jen takes care of the rest. You’re welcome to bring a friend or family member for support.',
+  },
+  {
+    q: 'I had a lumpectomy or reconstruction, not a full mastectomy. Can you still help?',
+    a: 'Absolutely. We fit partial shapers and enhancers for lumpectomy, reconstruction, implant removal, and uneven breasts — anything that helps you feel balanced and comfortable.',
+  },
+  {
+    q: 'Do you fit lymphedema compression sleeves and gloves?',
+    a: 'Yes. Jen is certified in fitting lymphedema products and carries graduated-compression sleeves, gauntlets, and gloves from Juzo. Proper measurement matters a great deal with compression, and she’ll make sure yours fits and supports you well.',
+  },
+  {
+    q: 'How long does an appointment take?',
+    a: 'Plan for about an hour. Your time is never rushed — a good fitting is worth doing carefully, and we want you to leave feeling confident and cared for.',
+  },
+  {
+    q: 'Is this website an online store?',
+    a: 'No. Carol’s is a fitting specialist and reseller. The products here are a browsable showcase so you can see what we carry — the fitting and ordering happen in person with Jen, where we can make sure everything is exactly right for you.',
+  },
+];
+
+// FAQ structured data for search engines
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="FAQ & Insurance"
+  description="Answers about appointments, insurance and Medicare coverage, prescriptions, lymphedema fitting, and what to expect at Carol's Post Mastectomy Specialist."
+>
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-blush to-cream"></div>
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center lg:py-20">
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-sage-deep">FAQ &amp; Insurance</p>
+      <h1 class="mt-3 text-4xl sm:text-5xl">Your questions, answered</h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-plum-soft">
+        Here are the things women ask us most. Don’t see yours? Jen is always happy to talk it through.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 py-10">
+    <div class="space-y-3">
+      {faqs.map((f) => (
+        <details class="group rounded-2xl border border-blush-deep/60 bg-ivory px-6 shadow-sm">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-lg font-semibold text-plum marker:content-none">
+            {f.q}
+            <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-blush text-brand-deep transition-transform group-open:rotate-45" aria-hidden="true">
+              <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round" /></svg>
+            </span>
+          </summary>
+          <p class="pb-6 text-plum-soft">{f.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <p class="mt-8 rounded-2xl bg-sage-soft/30 p-5 text-center text-sm text-plum-soft">
+      Insurance and Medicare details differ from plan to plan. The notes above are general guidance —
+      we’ll always verify your specific coverage with you. Questions? Call
+      <a href={contact.phoneHref} class="font-semibold text-brand-deep">{contact.phone}</a>.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pb-16 text-center">
+    <Button href="/book" size="lg">Book an Appointment</Button>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+</BaseLayout>

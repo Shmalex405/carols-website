@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import { booking, contact } from '../config';
+
+const bookingUrl = booking.googleCalendarUrl;
+const hasBooking = bookingUrl.length > 0;
+
+const bring = [
+  { title: 'A prescription, if you have one', body: 'For insurance or Medicare, a prescription from your doctor for a “breast prosthesis and post-mastectomy bras” helps. No prescription yet? Come anyway — we’ll guide you.' },
+  { title: 'Your insurance card', body: 'Bring it along and we’ll help you understand what your plan covers before anything is ordered.' },
+  { title: 'A comfortable top', body: 'Something easy to change in and out of makes fitting simple and relaxed.' },
+  { title: 'Just yourself', body: 'Bring a friend if you’d like, or come on your own. This is your time, at your pace.' },
+];
+---
+
+<BaseLayout
+  title="Book an Appointment"
+  description="Reserve a private, unhurried fitting appointment with Jen at Carol's Post Mastectomy Specialist in St. George, Utah."
+>
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-blush via-cream to-sage-soft/40"></div>
+    <div class="mx-auto max-w-4xl px-6 py-16 text-center lg:py-20">
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-sage-deep">Book an Appointment</p>
+      <h1 class="mt-3 text-4xl sm:text-5xl">Reserve your private fitting</h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-plum-soft">
+        Every appointment is one-on-one and unhurried. Choose a time that works for you, and Jen will
+        give you her full, caring attention.
+      </p>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="mx-auto max-w-4xl px-6 py-6">
+    {hasBooking ? (
+      <div class="rounded-[1.75rem] border border-blush-deep/60 bg-ivory p-4 shadow-sm sm:p-6">
+        <iframe
+          title="Book an appointment with Jen"
+          src={bookingUrl}
+          loading="lazy"
+          class="h-[640px] w-full rounded-2xl border-0"
+        ></iframe>
+        <p class="mt-4 text-center text-sm text-plum-mute">
+          Trouble with the calendar?
+          <a href={contact.phoneHref} class="font-semibold text-brand-deep">Call {contact.phone}</a>
+          and we’ll book you by phone.
+        </p>
+      </div>
+    ) : (
+      <div class="rounded-[1.75rem] border border-blush-deep/60 bg-ivory p-8 text-center shadow-sm">
+        <h2 class="text-2xl text-plum">Let’s find your time</h2>
+        <p class="mx-auto mt-3 max-w-lg text-plum-soft">
+          To book your appointment right now, please call or email Jen — she’ll find a time that suits
+          you, Monday through Thursday.
+        </p>
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <Button href={contact.phoneHref} size="lg">Call {contact.phone}</Button>
+          <Button href={contact.emailHref} variant="ghost" size="lg">Email Jen</Button>
+        </div>
+        <!-- Once Jen's Google Calendar appointment link is added to src/config.ts,
+             an online scheduler appears here automatically. -->
+      </div>
+    )}
+  </section>
+
+  <!-- What to bring -->
+  <section class="mx-auto max-w-5xl px-6 py-14">
+    <div class="mb-8 text-center">
+      <h2 class="text-3xl sm:text-4xl">A little of what to bring</h2>
+      <p class="mx-auto mt-3 max-w-xl text-plum-soft">Don’t worry about getting it perfect — we’ll help with everything.</p>
+    </div>
+    <div class="grid gap-5 sm:grid-cols-2">
+      {bring.map((b) => (
+        <div class="rounded-2xl border border-blush-deep/50 bg-ivory p-6 shadow-sm">
+          <h3 class="text-lg text-brand-deep">{b.title}</h3>
+          <p class="mt-2 text-plum-soft">{b.body}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-8 text-center">
+      <Button href="/what-to-expect" variant="ghost">See what to expect at your visit</Button>
+    </div>
+  </section>
+</BaseLayout>

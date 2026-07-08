@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+---
+
+<BaseLayout title="Page Not Found" description="Sorry, we couldn't find that page.">
+  <section class="mx-auto max-w-2xl px-6 py-28 text-center">
+    <p class="font-display text-6xl text-brand-soft">Oops</p>
+    <h1 class="mt-4 text-3xl sm:text-4xl">We couldn’t find that page</h1>
+    <p class="mx-auto mt-4 max-w-md text-plum-soft">
+      The page may have moved. Let’s get you back to somewhere helpful.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <Button href="/" size="lg">Return Home</Button>
+      <Button href="/products" variant="ghost" size="lg">Browse Products</Button>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * Carol's Post Mastectomy Specialist — brand design tokens
+ * Warm, dignified, healing. Rose + sage on soft cream.
+ * ------------------------------------------------------------------ */
+@theme {
+  /* Typefaces (self-hosted via @fontsource in BaseLayout) */
+  --font-display: "Fraunces Variable", ui-serif, Georgia, "Times New Roman", serif;
+  --font-sans: "Nunito Sans Variable", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+
+  /* Surfaces */
+  --color-cream: #fbf6f1;
+  --color-blush: #f4e7e0;
+  --color-blush-deep: #ecd7ce;
+  --color-ivory: #ffffff;
+
+  /* Brand — dusty rose */
+  --color-brand: #b06b78;
+  --color-brand-deep: #8c4c5b;
+  --color-brand-soft: #d8a9b0;
+
+  /* Accent — healing sage */
+  --color-sage: #7f9a86;
+  --color-sage-deep: #5e7c6a;
+  --color-sage-soft: #cdddd0;
+
+  /* Ink */
+  --color-plum: #3e2c34;
+  --color-plum-soft: #6b565f;
+  --color-plum-mute: #9a8890;
+
+  /* Warm gold highlight */
+  --color-gold: #c7a568;
+
+  /* Radii */
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+}
+
+/* ------------------------------------------------------------------ *
+ * Base styles
+ * ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-plum);
+    font-family: var(--font-sans);
+    font-optical-sizing: auto;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: var(--color-plum);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--color-brand-deep);
+  }
+
+  /* Visible, accessible focus ring everywhere */
+  :focus-visible {
+    outline: 3px solid var(--color-sage-deep);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-soft);
+    color: var(--color-plum);
+  }
+}
+
+/* Utility: constrain readable prose measure */
+@utility prose-measure {
+  max-width: 68ch;
+}
