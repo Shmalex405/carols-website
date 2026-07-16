@@ -30,7 +30,7 @@ Almost everything you'll want to edit lives in two files:
 ### 1. `src/config.ts` — business info & connections
 Phone, fax, email, address, hours, social links, and the two integration slots:
 
-- **`booking.googleCalendarUrl`** — Jen's Google Calendar appointment scheduling link.
+- **`booking.url`** — Jen's Microsoft Bookings page URL.
 - **`forms.web3formsAccessKey`** — the key that lets the inquiry form email Jen.
 
 Change a value here and the whole site updates.
@@ -69,13 +69,20 @@ The "Ask Jen" / Contact form uses [Web3Forms](https://web3forms.com) (free, no s
 
 ---
 
-## Connect online booking (Google Calendar) — ~10 minutes
+## Connect online booking (Microsoft Bookings) — ~15 minutes
 
-1. In Google Calendar, create an **Appointment schedule** (Jen's availability, Mon–Thu).
-2. Copy the **public booking link** (looks like `https://calendar.app.google/XXXXXXXX`).
-3. Paste it into `booking.googleCalendarUrl` in `src/config.ts`.
-4. The Book page automatically shows the live scheduler. (Until then, it shows call/email
-   booking.)
+Jen's calendar is Microsoft 365 / Outlook, so booking uses **Microsoft Bookings**.
+
+1. Go to <https://outlook.office.com/bookings> (or the Bookings app in Microsoft 365) and
+   create a booking calendar.
+2. Add a **service** — e.g. "Fitting Appointment" — with **Duration: 1 hour** (this makes the
+   public page show clickable **hour-long** time slots).
+3. Set **availability** to Mon–Thu, 10:00 AM–3:00 PM.
+4. Under **Booking page**, publish it and copy the **public URL**
+   (looks like `https://outlook.office365.com/owa/calendar/…/bookings/`).
+5. Paste it into `booking.url` in `src/config.ts`.
+6. The Book page then embeds the live calendar so visitors pick a slot and book right there.
+   (Until set, it shows call/email booking.)
 
 ---
 
@@ -139,7 +146,7 @@ public/
 ---
 
 ## Still to do (nice next steps)
-- Add Jen's real access key + Google Calendar link (above).
+- Add Jen's real access key + Microsoft Bookings link (above).
 - Replace photo placeholders with real photography.
 - Expand the catalog with more verified products from each supplier's current lineup.
 - Add a logo image if desired (currently a clean text wordmark).

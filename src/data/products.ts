@@ -18,8 +18,6 @@ export type CategorySlug =
   | 'breast-forms'
   | 'mastectomy-bras'
   | 'camisoles'
-  | 'swimwear'
-  | 'turbans-scarves'
   | 'compression';
 
 export interface Category {
@@ -91,22 +89,6 @@ export const categories: Category[] = [
     description:
       'Comfort for the earliest days. Post-surgical camisoles with soft, adjustable forms and built-in pockets to manage drains with dignity while you heal.',
     tint: ['#f4ece0', '#e7d3bd'],
-  },
-  {
-    slug: 'swimwear',
-    title: 'Mastectomy Swimwear',
-    short: 'Pocketed suits so you can enjoy the water again',
-    description:
-      'Flattering swimsuits with secure form pockets and thoughtful coverage — so the pool, the lake, and the beach feel wonderful again.',
-    tint: ['#dfeae7', '#c1d6cf'],
-  },
-  {
-    slug: 'turbans-scarves',
-    title: 'Turbans & Head Coverings',
-    short: 'Soft turbans, pre-tied scarves & hats',
-    description:
-      'Soft, breathable turbans, pre-tied scarves, and sleep caps in colors and textures that feel like you — comfort and confidence during treatment.',
-    tint: ['#f4e8dd', '#e6cbb0'],
   },
   {
     slug: 'compression',
@@ -367,41 +349,8 @@ const seedProducts: Product[] = [
   },
 
   // ── Swimwear ─────────────────────────────────────────────────
-  {
-    id: 'amoena-swim',
-    name: 'Amoena Swimwear',
-    brand: 'amoena',
-    category: 'swimwear',
-    blurb:
-      'Flattering pocketed swimsuits with secure coverage and beautiful prints — designed for confidence in and out of the water.',
-    features: ['Secure form pockets', 'Flattering coverage', 'Chlorine-friendly'],
-    supplierUrl: 'https://www.amoena.com/global/product-worlds/',
-    tags: ['pocketed'],
-    featured: true,
-  },
-  {
-    id: 'abc-swim',
-    name: 'American Breast Care Swimwear',
-    brand: 'abc',
-    category: 'swimwear',
-    blurb: 'Pocketed swimsuits and separates styled for comfort, coverage, and support.',
-    features: ['Pocketed suits', 'Comfortable coverage'],
-    supplierUrl: 'https://americanbreastcare.com/',
-    tags: ['pocketed'],
-  },
 
   // ── Turbans & Scarves ────────────────────────────────────────
-  {
-    id: 'amoena-headwear',
-    name: 'Amoena Turbans & Headwear',
-    brand: 'amoena',
-    category: 'turbans-scarves',
-    blurb:
-      'Soft, breathable turbans and caps in gentle fabrics and colors — easy comfort and coverage during treatment.',
-    features: ['Soft breathable fabric', 'Easy on & off'],
-    supplierUrl: 'https://www.amoena.com/global/product-worlds/',
-    tags: ['turban'],
-  },
 
   // ── Compression & Lymphedema ─────────────────────────────────
   {

@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import { booking, contact } from '../config';
 
-const bookingUrl = booking.googleCalendarUrl;
+const bookingUrl = booking.url;
 const hasBooking = bookingUrl.length > 0;
 
 const bring = [
@@ -57,8 +57,8 @@ const bring = [
           <Button href={contact.phoneHref} size="lg">Call {contact.phone}</Button>
           <Button href={contact.emailHref} variant="ghost" size="lg">Email Jen</Button>
         </div>
-        <!-- Once Jen's Google Calendar appointment link is added to src/config.ts,
-             an online scheduler appears here automatically. -->
+        <!-- Once Jen's Microsoft Bookings URL is added to src/config.ts,
+             the scheduler appears here automatically. -->
       </div>
     )}
   </section>

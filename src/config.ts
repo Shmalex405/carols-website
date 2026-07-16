@@ -52,14 +52,16 @@ export const social = {
 } as const;
 
 /**
- * BOOKING — Google Calendar Appointment Scheduling.
- * Jen creates an appointment schedule in Google Calendar, then pastes the
- * public booking link here (looks like https://calendar.app.google/XXXXXXXX).
- * Until then, the Book page falls back to phone/email.
+ * BOOKING — Microsoft Bookings (Jen's Outlook / Microsoft 365 calendar).
+ * Create a Bookings page (or "Bookings with me" in Outlook on the web), then
+ * paste its public booking-page URL here. Examples:
+ *   Microsoft Bookings: https://outlook.office365.com/owa/calendar/…/bookings/
+ *   Bookings with me:   https://outlook.office.com/bookwithme/user/…
+ * Until set, the Book page falls back to phone/email.
  */
 export const booking = {
-  // TODO: paste Jen's Google Calendar appointment scheduling link here.
-  googleCalendarUrl: '',
+  // TODO: paste Jen's Microsoft Bookings page URL here.
+  url: '',
 } as const;
 
 /**
@@ -88,8 +90,6 @@ export const nav: Array<{
       { label: 'Breast Forms & Prostheses', href: '/products/breast-forms' },
       { label: 'Mastectomy Bras', href: '/products/mastectomy-bras' },
       { label: 'Camisoles & Recovery', href: '/products/camisoles' },
-      { label: 'Mastectomy Swimwear', href: '/products/swimwear' },
-      { label: 'Turbans & Head Coverings', href: '/products/turbans-scarves' },
       { label: 'Compression & Lymphedema', href: '/products/compression' },
     ],
   },
