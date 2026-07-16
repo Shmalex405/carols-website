@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import InquiryForm from '../components/InquiryForm.astro';
 import { contact, social } from '../config';
+import { withBase } from '../lib/base';
 
 const mapEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(
   `${contact.address.line1} ${contact.address.city} ${contact.address.state} ${contact.address.zip}`,
@@ -22,6 +23,23 @@ const mapEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(
         back to you. There’s no obligation — just caring, honest help.
       </p>
     </div>
+  </section>
+
+  <!-- Our welcoming space -->
+  <section class="mx-auto max-w-5xl px-6 pb-4">
+    <figure class="overflow-hidden rounded-[2rem] shadow-lg ring-1 ring-ivory/60">
+      <img
+        src={withBase('/images/fitting-room.webp')}
+        width="1400"
+        height="933"
+        loading="lazy"
+        alt="Carol's private fitting room — pink armchairs, a sunny window, and a wall of pink-ribbon keepsakes"
+        class="w-full object-cover"
+      />
+      <figcaption class="bg-ivory px-6 py-4 text-center text-sm text-plum-soft">
+        Come as you are into a calm, private space — never a busy sales floor.
+      </figcaption>
+    </figure>
   </section>
 
   <section class="mx-auto grid max-w-6xl gap-10 px-6 py-12 lg:grid-cols-[1fr_1.3fr]">
@@ -82,6 +100,21 @@ const mapEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(
           class="h-64 w-full border-0"
         ></iframe>
       </div>
+
+      <!-- Find the building -->
+      <figure class="mt-6 overflow-hidden rounded-[1.75rem] border border-blush-deep/60 shadow-sm">
+        <img
+          src={withBase('/images/building.webp')}
+          width="900"
+          height="1602"
+          loading="lazy"
+          alt="Coral Desert Health Center in St. George, Utah — the building Carol's is located in"
+          class="aspect-[4/5] w-full object-cover object-top"
+        />
+        <figcaption class="bg-ivory px-5 py-3 text-sm text-plum-soft">
+          Look for <span class="font-semibold text-plum">Coral Desert Health Center</span> — we’re in Suite 310, third floor.
+        </figcaption>
+      </figure>
     </div>
 
     <!-- Inquiry form -->

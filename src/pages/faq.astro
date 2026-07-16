@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../lib/base';
 import Button from '../components/Button.astro';
 import { contact } from '../config';
 
@@ -66,6 +67,43 @@ const faqSchema = {
       <p class="mx-auto mt-5 max-w-2xl text-lg text-plum-soft">
         Here are the things women ask us most. Don’t see yours? Jen is always happy to talk it through.
       </p>
+    </div>
+  </section>
+
+  <!-- Certified & accredited -->
+  <section class="mx-auto max-w-6xl px-6 py-8">
+    <div class="grid items-center gap-10 lg:grid-cols-2">
+      <div class="aspect-[4/5] overflow-hidden rounded-[2rem] shadow-lg ring-1 ring-ivory/60">
+        <img
+          src={withBase('/images/jen-certified.webp')}
+          width="1000"
+          height="1550"
+          loading="lazy"
+          alt="Jen Flowers holding her American Board Certified Mastectomy Fitter certificate"
+          class="h-full w-full object-cover object-center"
+        />
+      </div>
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-deep">Certified &amp; accredited</p>
+        <h2 class="mt-2 text-3xl sm:text-4xl">Trusted care, with the credentials to back it</h2>
+        <p class="mt-5 text-plum-soft">
+          Jen is a <strong class="font-semibold text-plum">Certified Mastectomy Fitter</strong>,
+          certified by the American Board for Certification in Orthotics, Prosthetics &amp; Pedorthics
+          since 2005 — and Carol’s is a fully <strong class="font-semibold text-plum">board-accredited
+          facility</strong>. That means proper measurements, proper fittings, and the standards your
+          insurance looks for.
+        </p>
+        <figure class="mt-6 overflow-hidden rounded-2xl border border-blush-deep/60 shadow-sm">
+          <img
+            src={withBase('/images/certifications.webp')}
+            width="1200"
+            height="800"
+            loading="lazy"
+            alt="Carol's facility accreditation and Jen's Certified Fitter-mastectomy certifications, framed"
+            class="w-full object-cover"
+          />
+        </figure>
+      </div>
     </div>
   </section>
 
