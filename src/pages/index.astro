@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import { people, contact } from '../config';
 import { categories } from '../data/products';
+import { withBase } from '../lib/base';
 
 const pillars = [
   {
@@ -71,7 +72,7 @@ const steps = [
       <div class="relative">
         <div class="aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-xl shadow-brand/10 ring-1 ring-ivory/60">
           <img
-            src="/images/jen.webp"
+            src={withBase('/images/jen.webp')}
             width="1100"
             height="1143"
             alt="Jen Flowers, Certified Mastectomy Fitter at Carol's, smiling warmly"
@@ -115,7 +116,7 @@ const steps = [
     <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {categories.map((cat) => (
         <a
-          href={`/products/${cat.slug}`}
+          href={withBase(`/products/${cat.slug}`)}
           class="group relative flex min-h-52 flex-col justify-end overflow-hidden rounded-2xl p-6 no-underline shadow-sm ring-1 ring-blush-deep/50 transition-all hover:-translate-y-1 hover:shadow-lg"
           style={`background-image: linear-gradient(140deg, ${cat.tint[0]}, ${cat.tint[1]});`}
         >
@@ -158,7 +159,7 @@ const steps = [
       <!-- Carol & Jen together -->
       <div class="order-2 aspect-[5/4] overflow-hidden rounded-[2rem] shadow-lg ring-1 ring-ivory/60 lg:order-1">
         <img
-          src="/images/carol-and-jen.webp"
+          src={withBase('/images/carol-and-jen.webp')}
           width="1100"
           height="1086"
           loading="lazy"

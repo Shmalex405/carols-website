@@ -2,12 +2,17 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
-// The public URL the site will live at. Update if the final domain changes.
-// For a GitHub Pages *project* site (username.github.io/carols-website) also set
-// `base: '/carols-website'`. For a custom domain (carolsutah.com) leave base as '/'.
+// Base path:
+//  - Local dev / custom-domain build → '/' (default)
+//  - GitHub Pages *project* deploy    → '/carols-website' (set via PAGES_BASE in CI)
+// When the custom domain (carolsutah.com) is connected, remove PAGES_BASE from the
+// deploy workflow so the site serves at the root. All internal links use
+// withBase() (src/lib/base.ts), so they follow this automatically.
+const base = process.env.PAGES_BASE || '/';
+
 export default defineConfig({
   site: 'https://www.carolsutah.com',
-  base: '/',
+  base,
   trailingSlash: 'ignore',
   vite: {
     plugins: [tailwindcss()],

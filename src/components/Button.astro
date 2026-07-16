@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/base';
+
 interface Props {
   href: string;
   variant?: 'primary' | 'secondary' | 'ghost';
@@ -21,6 +23,6 @@ const sizes: Record<string, string> = {
 };
 ---
 
-<a href={href} class={`${base} ${variants[variant]} ${sizes[size]} ${cls}`} {...rest}>
+<a href={withBase(href)} class={`${base} ${variants[variant]} ${sizes[size]} ${cls}`} {...rest}>
   <slot />
 </a>

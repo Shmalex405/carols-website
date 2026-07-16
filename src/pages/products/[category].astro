@@ -9,6 +9,7 @@ import {
   type Category,
   type Product,
 } from '../../data/products';
+import { withBase } from '../../lib/base';
 
 export function getStaticPaths() {
   return categories.map((category) => ({
@@ -41,7 +42,7 @@ const otherCategories = categories.filter((c) => c.slug !== category.slug);
     </div>
     <div class="mx-auto max-w-4xl px-6 py-16 lg:py-20">
       <nav aria-label="Breadcrumb" class="mb-4 text-sm text-plum-soft">
-        <a href="/products" class="no-underline hover:text-brand-deep">Products</a>
+        <a href={withBase('/products')} class="no-underline hover:text-brand-deep">Products</a>
         <span aria-hidden="true" class="px-1.5">/</span>
         <span class="text-plum">{category.title}</span>
       </nav>
@@ -80,7 +81,7 @@ const otherCategories = categories.filter((c) => c.slug !== category.slug);
     ) : (
       <p class="text-plum-soft">
         We carry more in this category than we’ve listed here — please
-        <a href="/contact#inquiry" class="font-semibold text-brand-deep">ask Jen</a> about your needs.
+        <a href={withBase('/contact#inquiry')} class="font-semibold text-brand-deep">ask Jen</a> about your needs.
       </p>
     )}
 
@@ -134,7 +135,7 @@ const otherCategories = categories.filter((c) => c.slug !== category.slug);
     <div class="mt-5 flex flex-wrap gap-3">
       {otherCategories.map((c) => (
         <a
-          href={`/products/${c.slug}`}
+          href={withBase(`/products/${c.slug}`)}
           class="rounded-full border border-blush-deep/60 bg-ivory px-4 py-2 text-sm font-semibold text-plum no-underline transition-colors hover:bg-blush hover:text-brand-deep"
         >
           {c.title}

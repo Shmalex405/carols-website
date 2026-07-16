@@ -1,5 +1,6 @@
 ---
 import { site, contact, social, nav, people } from '../config';
+import { withBase } from '../lib/base';
 const year = 2026;
 ---
 
@@ -20,13 +21,13 @@ const year = 2026;
       <ul class="mt-4 space-y-2">
         {nav.map((item) => (
           <li>
-            <a class="text-blush/80 no-underline hover:text-ivory hover:underline" href={item.href}>
+            <a class="text-blush/80 no-underline hover:text-ivory hover:underline" href={withBase(item.href)}>
               {item.label}
             </a>
           </li>
         ))}
         <li>
-          <a class="text-blush/80 no-underline hover:text-ivory hover:underline" href="/book">
+          <a class="text-blush/80 no-underline hover:text-ivory hover:underline" href={withBase('/book')}>
             Book an Appointment
           </a>
         </li>

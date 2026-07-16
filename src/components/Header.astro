@@ -1,8 +1,12 @@
 ---
 import { nav } from '../config';
 import Button from './Button.astro';
+import { withBase } from '../lib/base';
 
-const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+let rawPath = Astro.url.pathname;
+if (BASE && rawPath.startsWith(BASE)) rawPath = rawPath.slice(BASE.length);
+const path = rawPath.replace(/\/$/, '') || '/';
 const isActive = (href: string) =>
   href === '/' ? path === '/' : path === href || path.startsWith(href + '/');
 ---
@@ -10,7 +14,7 @@ const isActive = (href: string) =>
 <header class="sticky top-0 z-50 border-b border-blush-deep/60 bg-cream/90 backdrop-blur-md">
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
     <!-- Logo -->
-    <a href="/" class="group flex flex-col leading-none no-underline" aria-label="Carol's Post Mastectomy Specialist — Home">
+    <a href={withBase('/')} class="group flex flex-col leading-none no-underline" aria-label="Carol's Post Mastectomy Specialist — Home">
       <span class="font-display text-2xl font-medium text-brand-deep transition-colors group-hover:text-brand sm:text-[1.7rem]">Carol's</span>
       <span class="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-plum-soft">Post Mastectomy Specialist</span>
     </a>
@@ -21,7 +25,7 @@ const isActive = (href: string) =>
         item.children ? (
           <div class="group relative">
             <a
-              href={item.href}
+              href={withBase(item.href)}
               aria-current={isActive(item.href) ? 'page' : undefined}
               class:list={[
                 'flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-semibold no-underline transition-colors',
@@ -36,7 +40,7 @@ const isActive = (href: string) =>
                 {item.children.map((child) => (
                   <li>
                     <a
-                      href={child.href}
+                      href={withBase(child.href)}
                       class="block rounded-xl px-3 py-2 text-sm text-plum no-underline transition-colors hover:bg-blush hover:text-brand-deep"
                     >
                       {child.label}
@@ -48,7 +52,7 @@ const isActive = (href: string) =>
           </div>
         ) : (
           <a
-            href={item.href}
+            href={withBase(item.href)}
             aria-current={isActive(item.href) ? 'page' : undefined}
             class:list={[
               'rounded-full px-3.5 py-2 text-sm font-semibold no-underline transition-colors',
@@ -86,14 +90,14 @@ const isActive = (href: string) =>
       <ul class="space-y-1">
         {nav.map((item) => (
           <li>
-            <a href={item.href} class="block rounded-xl px-3 py-2.5 text-base font-semibold text-plum no-underline hover:bg-blush">
+            <a href={withBase(item.href)} class="block rounded-xl px-3 py-2.5 text-base font-semibold text-plum no-underline hover:bg-blush">
               {item.label}
             </a>
             {item.children && (
               <ul class="mb-1 ml-3 border-l border-blush-deep/60 pl-3">
                 {item.children.map((child) => (
                   <li>
-                    <a href={child.href} class="block rounded-lg px-3 py-2 text-sm text-plum-soft no-underline hover:bg-blush hover:text-brand-deep">
+                    <a href={withBase(child.href)} class="block rounded-lg px-3 py-2 text-sm text-plum-soft no-underline hover:bg-blush hover:text-brand-deep">
                       {child.label}
                     </a>
                   </li>

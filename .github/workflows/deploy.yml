@@ -28,6 +28,10 @@ jobs:
         uses: withastro/action@v3
         # This action installs deps, runs `astro build`, and uploads the
         # dist/ folder as the Pages artifact. Node 20+ is used automatically.
+        env:
+          # Serve under /carols-website on the github.io project URL.
+          # Delete this line once the custom domain (carolsutah.com) is connected.
+          PAGES_BASE: /carols-website
 
   deploy:
     needs: build

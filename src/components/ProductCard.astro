@@ -1,5 +1,6 @@
 ---
 import { brands, getCategory, type Product } from '../data/products';
+import { withBase } from '../lib/base';
 
 interface Props {
   product: Product;
@@ -8,7 +9,7 @@ const { product } = Astro.props;
 const brand = brands[product.brand];
 const category = getCategory(product.category);
 const tint = category?.tint ?? ['#f4e7e0', '#e6c9cf'];
-const askHref = `/contact?product=${encodeURIComponent(product.name)}#inquiry`;
+const askHref = withBase(`/contact?product=${encodeURIComponent(product.name)}#inquiry`);
 ---
 
 <article class="group flex flex-col overflow-hidden rounded-2xl border border-blush-deep/50 bg-ivory shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
@@ -16,7 +17,7 @@ const askHref = `/contact?product=${encodeURIComponent(product.name)}#inquiry`;
   <div class="relative aspect-[4/3] overflow-hidden">
     {product.image ? (
       <img
-        src={product.image}
+        src={withBase(product.image)}
         alt={product.name}
         loading="lazy"
         decoding="async"

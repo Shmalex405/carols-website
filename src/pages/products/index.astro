@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import { categories, brands, featuredProducts } from '../../data/products';
+import { withBase } from '../../lib/base';
 
 const featured = featuredProducts();
 const brandList = Object.values(brands);
@@ -52,7 +53,7 @@ const brandList = Object.values(brands);
     <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {categories.map((cat) => (
         <a
-          href={`/products/${cat.slug}`}
+          href={withBase(`/products/${cat.slug}`)}
           class="group relative flex min-h-56 flex-col justify-end overflow-hidden rounded-2xl p-6 no-underline shadow-sm ring-1 ring-blush-deep/50 transition-all hover:-translate-y-1 hover:shadow-lg"
           style={`background-image: linear-gradient(140deg, ${cat.tint[0]}, ${cat.tint[1]});`}
         >
