@@ -9,12 +9,12 @@ const faqs = [
     a: 'Yes, please — Carol’s is by appointment only so that Jen can give you her complete, private attention. Appointments are available Monday through Thursday. Call 435-688-0452, email Jen@carolsutah.com, or book online.',
   },
   {
-    q: 'Does insurance or Medicare cover breast forms and bras?',
-    a: 'In most cases, yes. Medicare and many private insurance plans cover post-mastectomy breast prostheses (forms) and mastectomy bras when prescribed. Coverage amounts and how often items can be replaced vary by plan. Bring your prescription and insurance information to your appointment and we’ll help you understand your specific benefits before anything is ordered.',
+    q: 'Does insurance cover breast forms and bras?',
+    a: 'In most cases, yes. Many private insurance plans cover post-mastectomy breast prostheses (forms) and mastectomy bras when prescribed. Coverage amounts and how often items can be replaced vary by plan. Bring your prescription and insurance information to your appointment and we’ll help you understand your specific benefits before anything is ordered.',
   },
   {
     q: 'Do I need a prescription?',
-    a: 'For insurance or Medicare to help pay, a prescription from your doctor for a “breast prosthesis and post-mastectomy bras” is usually required. If you don’t have one yet, come in anyway — we can talk through what you’ll need and help you get set up.',
+    a: 'For insurance to help pay, a prescription from your doctor for a “breast prosthesis and post-mastectomy bras” is usually required. If you don’t have one yet, come in anyway — we can talk through what you’ll need and help you get set up.',
   },
   {
     q: 'How often can I get a new breast form or bras?',
@@ -56,7 +56,7 @@ const faqSchema = {
 
 <BaseLayout
   title="FAQ & Insurance"
-  description="Answers about appointments, insurance and Medicare coverage, prescriptions, lymphedema fitting, and what to expect at Carol's Post Mastectomy Specialist."
+  description="Answers about appointments, insurance coverage, prescriptions, lymphedema fitting, and what to expect at Carol's Post Mastectomy Specialist."
 >
   <section class="relative overflow-hidden">
     <div class="absolute inset-0 -z-10 bg-gradient-to-b from-blush to-cream"></div>
@@ -85,7 +85,7 @@ const faqSchema = {
     </div>
 
     <p class="mt-8 rounded-2xl bg-sage-soft/30 p-5 text-center text-sm text-plum-soft">
-      Insurance and Medicare details differ from plan to plan. The notes above are general guidance —
+      Insurance details differ from plan to plan. The notes above are general guidance —
       we’ll always verify your specific coverage with you. Questions? Call
       <a href={contact.phoneHref} class="font-semibold text-brand-deep">{contact.phone}</a>.
     </p>

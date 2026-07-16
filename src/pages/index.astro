@@ -14,8 +14,8 @@ const pillars = [
     body: `${people.fitterName} is a Certified Mastectomy Fitter with 20+ years of experience, also certified in fitting lymphedema compression.`,
   },
   {
-    title: 'Insurance & Medicare',
-    body: 'Breast forms and post-mastectomy bras are often covered. We help you understand your benefits and handle the paperwork.',
+    title: 'Insurance help',
+    body: 'Breast forms and post-mastectomy bras are often covered by private insurance. We help you understand your benefits and handle the paperwork.',
   },
 ];
 
@@ -67,12 +67,23 @@ const steps = [
         </p>
       </div>
 
-      <!-- PHOTO SLOT: replace with a warm photo of Jen / the fitting room -->
+      <!-- Jen — the fitter you'll meet -->
       <div class="relative">
-        <div class="aspect-[4/5] w-full rounded-[2rem] bg-gradient-to-br from-brand-soft/50 via-blush to-sage-soft/60 shadow-xl shadow-brand/10 ring-1 ring-ivory/60"></div>
+        <div class="aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-xl shadow-brand/10 ring-1 ring-ivory/60">
+          <img
+            src="/images/jen.webp"
+            width="1100"
+            height="1143"
+            alt="Jen Flowers, Certified Mastectomy Fitter at Carol's, smiling warmly"
+            fetchpriority="high"
+            class="h-full w-full object-cover object-center"
+          />
+        </div>
         <div class="absolute bottom-5 left-5 right-5 rounded-2xl bg-ivory/85 p-5 backdrop-blur">
-          <p class="font-display text-xl text-plum">“To help them feel the love and compassion that only comes from a survivor.”</p>
-          <p class="mt-2 text-sm text-plum-soft">— {people.founderName}, our founder</p>
+          <p class="font-display text-xl text-plum">{people.fitterName}</p>
+          <p class="mt-1 text-sm text-plum-soft">
+            {people.fitterTitle} · carrying on her mother {people.founderName}’s legacy
+          </p>
         </div>
       </div>
     </div>
@@ -144,8 +155,17 @@ const steps = [
   <!-- ───────────────────────── Story teaser ───────────────────────── -->
   <section class="mx-auto max-w-6xl px-6 py-20">
     <div class="grid items-center gap-12 lg:grid-cols-2">
-      <!-- PHOTO SLOT: replace with a photo of Carol and/or Jen -->
-      <div class="order-2 aspect-[5/4] rounded-[2rem] bg-gradient-to-tr from-sage-soft/60 via-cream to-blush shadow-lg ring-1 ring-ivory/60 lg:order-1"></div>
+      <!-- Carol & Jen together -->
+      <div class="order-2 aspect-[5/4] overflow-hidden rounded-[2rem] shadow-lg ring-1 ring-ivory/60 lg:order-1">
+        <img
+          src="/images/carol-and-jen.webp"
+          width="1100"
+          height="1086"
+          loading="lazy"
+          alt="Carol Stenquist and her daughter Jen Flowers together, smiling"
+          class="h-full w-full object-cover object-top"
+        />
+      </div>
       <div class="order-1 lg:order-2">
         <p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-deep">Our story</p>
         <h2 class="mt-2 text-3xl sm:text-4xl">A daughter’s promise, a mother’s love</h2>
