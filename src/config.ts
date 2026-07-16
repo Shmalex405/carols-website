@@ -60,8 +60,8 @@ export const social = {
  * Until set, the Book page falls back to phone/email.
  */
 export const booking = {
-  // TODO: paste Jen's Microsoft Bookings page URL here.
-  url: '',
+  // Jen's Microsoft Bookings page (syncs to her Outlook / M365 calendar).
+  url: 'https://bookings.cloud.microsoft/book/FittingAppointments@carolsutah.com/',
 } as const;
 
 /**
