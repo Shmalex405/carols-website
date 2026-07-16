@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
+import { withBase } from '../lib/base';
 
 const steps = [
   {
@@ -39,6 +40,39 @@ const steps = [
         If you’ve never been fitted before, it’s natural to feel unsure. Here’s exactly what happens —
         so you can walk in knowing you’re in gentle, capable hands.
       </p>
+    </div>
+  </section>
+
+  <!-- Meet Jen in her space -->
+  <section class="mx-auto max-w-6xl px-6 py-10">
+    <div class="grid items-center gap-10 lg:grid-cols-2">
+      <div class="aspect-[4/5] overflow-hidden rounded-[2rem] shadow-lg ring-1 ring-ivory/60">
+        <img
+          src={withBase('/images/jen-fitting.webp')}
+          width="1100"
+          height="1650"
+          loading="lazy"
+          alt="Jen fitting a mastectomy bra in her warm, private fitting room at Carol's"
+          class="h-full w-full object-cover object-center"
+        />
+      </div>
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-deep">A friendly face</p>
+        <h2 class="mt-2 text-3xl sm:text-4xl">Just you and Jen, in a space that feels like home</h2>
+        <div class="mt-5 space-y-4 text-plum-soft">
+          <p>
+            Your fitting happens in a calm, private room — never a busy sales floor. It’s just you
+            and Jen, with all the time you need and none of the rush.
+          </p>
+          <p>
+            She’ll listen first, then gently help you find what feels right — with the same warmth
+            and understanding that has defined Carol’s for four decades.
+          </p>
+        </div>
+        <div class="mt-7">
+          <Button href="/book">Book an Appointment</Button>
+        </div>
+      </div>
     </div>
   </section>
 
