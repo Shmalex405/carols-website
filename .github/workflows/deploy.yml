@@ -30,10 +30,8 @@ jobs:
         # Astro 7 requires Node >= 22.12, so pin the build to Node 22.
         with:
           node-version: 22
-        env:
-          # Serve under /carols-website on the github.io project URL.
-          # Delete this line once the custom domain (carolsutah.com) is connected.
-          PAGES_BASE: /carols-website
+        # Custom domain (www.carolsutah.com, via public/CNAME) serves at the
+        # root, so no PAGES_BASE — the site builds with base '/'.
 
   deploy:
     needs: build
