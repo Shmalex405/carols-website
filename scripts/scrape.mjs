@@ -53,7 +53,11 @@ const slugify = (s) =>
     .replace(/^-+|-+$/g, '')
     .slice(0, 60);
 
-const SITE_NAMES = new Set(['almostu', 'amoena', 'nearly me', 'nearlyme', 'juzo', 'trulife', 'american breast care']);
+const SITE_NAMES = new Set(['almostu', 'amoena', 'nearly me', 'nearlyme', 'juzo', 'trulife', 'american breast care', 'anita']);
+
+// Carol's carries mastectomy/fitting products only — never regular underwear.
+// Applied to product titles/slugs in every scrape path.
+const UNDERWEAR = /\b(pant(y|ies)|briefs?|thongs?|boy\s?shorts?)\b/i;
 
 /** Human title from a URL slug, e.g. "asymetrical-regular-weight-forms" → "Asymetrical Regular Weight Forms". */
 function titleize(slug) {
@@ -163,7 +167,7 @@ async function fetchProductMeta(url, imageFrom) {
   const rawTitle = og('title') || (html.match(/<title>([^<]+)<\/title>/i)?.[1] ?? '');
   let title = cleanName(rawTitle).replace(/^buy\s+/i, '');
   // strip trailing site-name suffix e.g. " | Amoena USA", " - Trulife"
-  title = title.replace(/\s*[|–-]\s*(amoena(\s+usa)?|nearly\s?me|almost\s?u|juzo|trulife|american breast care)\s*$/i, '').trim();
+  title = title.replace(/\s*[|–-]\s*(amoena(\s+usa)?|nearly\s?me|almost\s?u|juzo|trulife|american breast care|anita(\s+care)?)\s*$/i, '').trim();
   const cs = title.match(/\s[-–]\s([A-Za-z]+)$/); // trailing " - ivory" color suffix
   if (cs && COLORS.has(cs[1].toLowerCase())) title = title.slice(0, cs.index).trim();
 
@@ -298,6 +302,54 @@ async function scrapeCategory(base, listUrls, linkPattern) {
   return products.filter(Boolean);
 }
 
+/** Magento (Hyvä) listing: product tiles are anchors with data-product-id; pages use ?p=N. */
+async function magentoListing(listUrl, titleStyle) {
+  const bases = new Set();
+  for (let page = 1; page <= 15; page++) {
+    const url = page === 1 ? listUrl : `${listUrl}?p=${page}`;
+    let html;
+    try {
+      html = await (await fetchWithRetry(url)).text();
+    } catch {
+      break;
+    }
+    const before = bases.size;
+    const re = /<a href="(https?:\/\/[^"]+)"[^>]*data-product-id="\d+"/gi;
+    let m;
+    while ((m = re.exec(html))) bases.add(m[1].split('#')[0].split('?')[0]);
+    if (bases.size === before) break; // no new products → stop paginating
+  }
+  const products = await pMap([...bases], 6, async (url) => {
+    try {
+      const meta = await fetchProductMeta(url);
+      if (!meta.title || !meta.image) return null;
+      await sleep(80);
+      const slugSeg = url.replace(/\/$/, '').split('/').pop().replace(/\.html$/, '');
+      return {
+        title: titleStyle === 'dashCaps' ? dashCapsTitle(meta.title) : meta.title,
+        url,
+        image: meta.image,
+        blurb: meta.blurb,
+        slug: slugify(slugSeg),
+      };
+    } catch {
+      return null;
+    }
+  });
+  return products.filter(Boolean);
+}
+
+/** "LOTTA - Mastectomy bra" → "Lotta Mastectomy Bra" */
+function dashCapsTitle(t) {
+  const tc = (s) => s.toLowerCase().replace(/(^|[\s\-/])[a-z]/g, (c) => c.toUpperCase());
+  return String(t)
+    .split(/\s+[-–]\s+/)
+    .map(tc)
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 // ─────────────────────────────────────────────────────────── config ──
 // Filled in per brand as we validate each site. See scrape order in README-ish
 // comments. `method` picks the source strategy above.
@@ -329,7 +381,7 @@ const CONFIG = {
     method: 'sitemap',
     imageFrom: 'ld', // real product photo is in JSON-LD, not og:image
     sitemapUrl: 'https://www.amoena.com/sitemap_www_amoena_com_us-en_products.xml',
-    excludes: ['/outlet/', '/sale/', '/new-in/', '/bra-accessories/', '/breast-form-accessories/'],
+    excludes: ['/outlet/', '/sale/', '/new-in/', '/bra-accessories/', '/breast-form-accessories/', '-panty-', '-brief-'],
     pathMap: [
       { match: '/post-surgery-recovery-wear/', slug: 'camisoles' },
       { match: '/lymph-care/', slug: 'compression' },
@@ -378,6 +430,96 @@ const CONFIG = {
     cap: 80,
   },
 
+  // Anita (Magento/Hyvä): mastectomy bras are shoppable list pages. Breast
+  // prostheses are NOT sold in Anita's web shop (fitter-channel product), so
+  // they're hand-curated below from the anita-care editorial pages — real
+  // line names, SKUs, images, and page links, no shoppable product URLs exist.
+  anita: {
+    base: 'https://www.anita.com',
+    method: 'magento',
+    titleStyle: 'dashCaps', // og titles look like "LOTTA - Mastectomy bra"
+    categories: [
+      {
+        slug: 'mastectomy-bras',
+        sources: ['https://www.anita.com/en/bras/mastectomy-bras.html'],
+        tags: ['pocketed'],
+      },
+    ],
+    manual: (() => {
+      const CMS = 'https://cdn-01.anita.com/cms//fileadmin/user_upload/Content_Elements/Home/Care/Brustprothesen';
+      const FULL = 'https://www.anita.com/en/anita-care/full-prosthetics.html';
+      const PARTIAL = 'https://www.anita.com/en/anita-care/partial-prosthetics.html';
+      const PRIMARY = 'https://www.anita.com/en/anita-care/primary-care.html';
+      const VELVETY = 'https://www.anita.com/en/anita-care/velvety-breast-prostheses.html';
+      const form = (name, url, image, blurb, tags) => ({
+        name, url, image, blurb, tags, category: 'breast-forms',
+      });
+      return [
+        // ── Full silicone forms ─────────────────────────────────
+        form('Velvety 1066X', VELVETY, `${CMS}/Velvety/1066X_007_500.jpg`,
+          'The Velvety full breast form — a silky-smooth surface that feels like a second skin, made to go with you through every situation.', ['silicone', 'everyday']),
+        form('Velvety SoftLite 1068X', VELVETY, `${CMS}/Velvety/1068X_777_VAR.jpg`,
+          'Velvety softness in lightweight SoftLite silicone — noticeably lighter for easy all-day comfort.', ['silicone', 'lightweight']),
+        form('TriNature SoftLite 1051X', FULL, `${CMS}/Vollversorung/1051X_TriNature_SoftLite.jpg`,
+          'A soft, natural form in SoftLite silicone — up to 42% lighter than full-weight forms, lovely for active days.', ['silicone', 'lightweight']),
+        form('TriNature 1058X', FULL, `${CMS}/Vollversorung/1058X_TriNature_01.jpg`,
+          'The classic TriNature silicone form with complete weight balance and a beautifully natural shape.', ['silicone', 'weighted']),
+        form('TriNature Asymmetric SoftLite 1081L/R', FULL, `${CMS}/Vollversorung/1081L_TriNature_Asymmetric.jpg`,
+          'Left/right asymmetric TriNature shapes in lighter SoftLite silicone for a precise, natural fit.', ['silicone', 'asymmetric', 'lightweight']),
+        form('Softtouch 1052X2', FULL, `${CMS}/Vollversorung/1052X2_Softtouch.jpg`,
+          'A wonderfully soft full silicone form with complete weight balance for a secure, even silhouette.', ['silicone', 'weighted']),
+        form('Amica Supersoft 1151X', FULL, `${CMS}/Vollversorung/1151X_Amica_SuperSoft.jpg`,
+          'An extra-soft silicone form that settles gently and naturally against the body.', ['silicone', 'everyday']),
+        form('Valance Vario 1052XV', FULL, `${CMS}/Vollversorung/1052XV_Valance_Vario.jpg`,
+          'A soft, skin-friendly full form from the Valance line, made for a comfortable, secure everyday fit.', ['silicone', 'everyday']),
+        form('Authentic 1020X', FULL, `${CMS}/Vollversorung/1020X_007_Authentic.jpg`,
+          'Soft, thin tapering edges let this full form blend smoothly for a discreet, natural look.', ['silicone', 'everyday']),
+        form('Softback 1050X', FULL, `${CMS}/Vollversorung/1050X_Softback.jpg`,
+          'Two-layer technology with a soft back layer that rests gently against sensitive skin.', ['silicone', 'everyday']),
+        form('Softback Asymmetric 1080L/R', FULL, `${CMS}/Vollversorung/1080L_007_Softback_Asymmetric.jpg`,
+          'The two-layer Softback comfort in left/right asymmetric shapes for a tailored fit.', ['silicone', 'asymmetric']),
+        form('TriTex 1055X', FULL, `${CMS}/Vollversorung/1055X_TriTex.jpg`,
+          'A silicone form with a breathable textile microfibre backing — up to 25% lighter, with a comfortable skin climate.', ['lightweight', 'breathable']),
+        form('TriTex Asymmetric 1085L/R', FULL, `${CMS}/Vollversorung/Anita-care-prostheses-TriTex-Asymmetric-1085R.jpg`,
+          'TriTex breathable-back comfort in asymmetric left/right shapes.', ['asymmetric', 'breathable']),
+        form('Pure Fresh 1086X', FULL, `${CMS}/Vollversorung/1086X_300_Pure_Fresh.jpg`,
+          'A light, fresh silicone form designed for comfortable wear on warm, active days.', ['lightweight', 'breathable']),
+        form('Active 1054X', FULL, `${CMS}/Vollversorung/1054X_Active.jpg`,
+          'A ribbed, breathable sports form with air chambers that help keep you cool while you move.', ['sport', 'lightweight']),
+        form('Active Asymmetric 1084L/R', FULL, `${CMS}/Vollversorung/1084L_400x300.png`,
+          'The Active sports form in asymmetric left/right shapes for a secure fit during exercise.', ['sport', 'asymmetric']),
+        form('TriWing 1053X', FULL, `${CMS}/Vollversorung/1053X_TriWing.jpg`,
+          'A full silicone breast form with complete weight balance from the Standard & Soft line.', ['silicone', 'weighted']),
+        form('TriVaria 1043X', FULL, `${CMS}/Vollversorung/1043X_TriVaria.jpg`,
+          'A versatile full form with complete weight balance and a naturally soft shape.', ['silicone', 'weighted']),
+        form('TriCup 1089X', FULL, `${CMS}/Vollversorung/1089X_TriCup.jpg`,
+          'A softly shaped full silicone form for a natural profile in the bra cup.', ['silicone', 'everyday']),
+        // ── Partial forms & shapers ─────────────────────────────
+        form('Velvety LiteShell 1067X', PARTIAL, `${CMS}/Teilversorgung/1067X_Velvety_LiteShell.jpg`,
+          'A silky Velvety partial shell that balances the breast after breast-conserving surgery.', ['partial', 'lumpectomy']),
+        form('SequiNature 1028X2', PARTIAL, `${CMS}/Teilversorgung/1028X2_SequiNature..jpg`,
+          'A soft partial form that layers gently over your own tissue to even out shape.', ['partial', 'lumpectomy']),
+        form('Equitex 1057X', PARTIAL, `${CMS}/Teilversorgung/1057X_Equitex.jpg`,
+          'A breathable, textile-backed partial form for comfortable everyday balance.', ['partial', 'breathable']),
+        form('Equitex Volume 1157X', PARTIAL, `${CMS}/Teilversorgung/1157X_Equitex_Volume.jpg`,
+          'The Equitex partial with added volume for fuller balance where you need it.', ['partial', 'breathable']),
+        form('Sequitex 1046X', PARTIAL, `${CMS}/Teilversorgung/1046X_Sequitex_01.jpg`,
+          'A triangular partial form that can be worn on either side.', ['partial', 'lumpectomy']),
+        form('Sequitex Trapez 1045X', PARTIAL, `${CMS}/Teilversorgung/1045X_Sequitex_Trapez.jpg`,
+          'A trapeze-shaped partial form for flexible placement wherever balance is needed.', ['partial', 'lumpectomy']),
+        form('Volume 1046X2', PARTIAL, `${CMS}/Teilversorgung/1046X2_Volume800x600.jpg`,
+          'A partial form that adds gentle volume for an even, natural silhouette.', ['partial', 'lumpectomy']),
+        // ── Primary care / first forms ──────────────────────────
+        form('TriFirst 1014X', PRIMARY, `${CMS}/Erstversorgung/1014X_TriFirst.jpg`,
+          'A gentle textile first form for the tender weeks right after surgery.', ['post-surgery', 'lightweight']),
+        form('EquiLight 1018X', PRIMARY, `${CMS}/Erstversorgung/1018X_722_EquiLight.jpg`,
+          'A featherlight textile form for primary care — also a comfy silicone-form substitute at home.', ['post-surgery', 'lightweight']),
+        form('TriFirst 1019X', PRIMARY, `${CMS}/Erstversorgung/1019X_TriFirst.jpg`,
+          'A soft textile first form offering light, gentle balance while you heal.', ['post-surgery', 'lightweight']),
+      ];
+    })(),
+  },
+
   almostu: {
     base: 'https://almostu.com',
     method: 'scrape',
@@ -412,7 +554,7 @@ const CATEGORY_WORD = {
 
 const BRAND_NAME = {
   amoena: 'Amoena', abc: 'American Breast Care', trulife: 'Trulife',
-  nearlyme: 'Nearly Me', almostu: 'Almost U', juzo: 'Juzo',
+  nearlyme: 'Nearly Me', almostu: 'Almost U', juzo: 'Juzo', anita: 'Anita Care',
 };
 
 /**
@@ -478,6 +620,7 @@ async function scrapeBrandSitemap(brand, cfg) {
         const meta = await fetchProductMeta(url, cfg.imageFrom);
         if (!meta.title || !meta.image) return null;
         const slug = slugify(url.replace(/\/$/, '').split('/').pop());
+        if (UNDERWEAR.test(meta.title) || UNDERWEAR.test(slug)) return null;
         const image = await downloadImage(meta.image, brand, slug, cfg.base);
         if (!image) return null;
         await sleep(60);
@@ -526,6 +669,7 @@ async function scrapeBrand(brand) {
       try {
         if (cfg.method === 'shopify') raw.push(...(await shopifyCollection(cfg.base, src)));
         else if (cfg.method === 'woo') raw.push(...(await wooProducts(cfg.base, src)));
+        else if (cfg.method === 'magento') raw.push(...(await magentoListing(src, cfg.titleStyle)));
         else if (cfg.method === 'scrape') raw.push(...(await scrapeCategory(cfg.base, [src], cat.linkPattern || cfg.linkPattern)));
       } catch (e) {
         console.log(`  ! ${cat.slug} <- ${src}: ${e.message}`);
@@ -536,6 +680,7 @@ async function scrapeBrand(brand) {
     for (const r of raw) {
       const key = r.url || r.slug;
       if (!r.title || !r.image || seen.has(key)) continue;
+      if (UNDERWEAR.test(r.title) || UNDERWEAR.test(r.slug || '')) continue;
       seen.add(key);
       items.push(r);
     }
@@ -559,6 +704,23 @@ async function scrapeBrand(brand) {
     });
     out.push(...built.filter(Boolean));
   }
+
+  // hand-curated entries (supplier lines with no shoppable product pages)
+  for (const mp of cfg.manual || []) {
+    const slug = slugify(mp.name);
+    const image = await downloadImage(mp.image, brand, slug, cfg.base);
+    out.push({
+      id: `${brand}-${slug}`,
+      name: mp.name,
+      brand,
+      category: mp.category,
+      blurb: mp.blurb || `A ${CATEGORY_WORD[mp.category]} from ${BRAND_NAME[brand]}.`,
+      ...(image ? { image } : {}),
+      supplierUrl: mp.url,
+      tags: mp.tags || [],
+    });
+  }
+  if (cfg.manual) console.log(`  manual: ${cfg.manual.length} curated entries`);
 
   // de-dupe by id (keep first)
   const byId = new Map();

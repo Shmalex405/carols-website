@@ -63,6 +63,7 @@ export const brands = {
   nearlyme: { name: 'Nearly Me', url: 'https://nearlymeonline.com/' },
   almostu: { name: 'Almost U', url: 'https://almostu.com/' },
   juzo: { name: 'Juzo', url: 'https://www.juzo.com/' },
+  anita: { name: 'Anita Care', url: 'https://www.anita.com/en/anita-care.html' },
 } as const satisfies Record<string, Brand>;
 
 export const categories: Category[] = [
