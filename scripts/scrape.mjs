@@ -431,9 +431,11 @@ const CONFIG = {
   },
 
   // Anita (Magento/Hyvä): mastectomy bras are shoppable list pages. Breast
-  // prostheses are NOT sold in Anita's web shop (fitter-channel product), so
-  // they're hand-curated below from the anita-care editorial pages — real
-  // line names, SKUs, images, and page links, no shoppable product URLs exist.
+  // prostheses and the compression / Lymph O Fit lines are NOT sold in Anita's
+  // web shop (fitter-channel product), so they're hand-curated below from the
+  // anita-care editorial pages — real line names, SKUs, images, and page links,
+  // no shoppable product URLs exist. (The "…-bra" short links on those pages go
+  // to Anita's B2B trade portal, so every entry points at the public page.)
   anita: {
     base: 'https://www.anita.com',
     method: 'magento',
@@ -453,6 +455,12 @@ const CONFIG = {
       const VELVETY = 'https://www.anita.com/en/anita-care/velvety-breast-prostheses.html';
       const form = (name, url, image, blurb, tags) => ({
         name, url, image, blurb, tags, category: 'breast-forms',
+      });
+      // Compression bras, bandages & Lymph O Fit — all one editorial page.
+      const KOMP = 'https://cdn-01.anita.com/cms//fileadmin/user_upload/Content_Elements/Home/Care/Kompressions-BHs___Bandagen';
+      const COMPRESSION = 'https://www.anita.com/en/anita-care/compression-bras-bandages.html';
+      const comp = (name, image, blurb, tags) => ({
+        name, url: COMPRESSION, image: `${KOMP}/${image}`, blurb, tags, category: 'compression',
       });
       return [
         // ── Full silicone forms ─────────────────────────────────
@@ -516,6 +524,56 @@ const CONFIG = {
           'A featherlight textile form for primary care — also a comfy silicone-form substitute at home.', ['post-surgery', 'lightweight']),
         form('TriFirst 1019X', PRIMARY, `${CMS}/Erstversorgung/1019X_TriFirst.jpg`,
           'A soft textile first form offering light, gentle balance while you heal.', ['post-surgery', 'lightweight']),
+        // ── Post-surgical compression bras & bandages ───────────
+        comp('Almeria Compression Bra', '4008X_127_1343_596_038_01.jpg',
+          'A front-zip compression bra with a pull handle that makes it easy to fasten on tender days, and soft inner pockets on both sides for a first form or the foam cups it comes with. Sizes XS–XXL.',
+          ['compression', 'post-surgery']),
+        comp('Leeds Compression Bra', '4111_001_2114_001_031_600x600_01.jpg',
+          'Seamless pre-formed cups hold and steady the breast through the healing phase after surgery, easing pressure marks and supporting scar healing. Cups A–F.',
+          ['compression', 'post-surgery']),
+        comp('Marbella Compression Bra', '1094_001_1343_001_01_035.jpg',
+          'Cups of soft, stretchy cotton make this one especially kind to the skin — steadying the breast after plastic or reconstructive surgery while relieving the lymph pathways. Cups A, B/C, D/E.',
+          ['compression', 'post-surgery']),
+        comp('Marbella Compression Bra with Sevilla Post-Op Belt', '1095_001_1343_001_01_047.jpg',
+          'The Marbella bra paired with the “Sevilla” post-op belt for gentle abdominal compression as well — flexibly adjustable as you move through the healing process. Cups A, B/C, D/E.',
+          ['compression', 'post-surgery']),
+        comp('Munich Compression Bra', '1064_006_1342_006_066.jpg',
+          'Steady, comfortable support after breast-conserving therapy or a reduction, lift, or reconstruction — shaped to avoid pressure points and tissue irritation. Cups AA/A–D/E.',
+          ['compression', 'post-surgery']),
+        comp('Valencia Compression Bra', '1194_047_131_dot.jpg',
+          'A cotton-rich compression bra made for care after breast-conserving surgery, with controlled compression over the scar area and a soft, steadying fit. Cups A–E.',
+          ['compression', 'post-surgery']),
+        comp('Osaka Compression Bra', '1195_006_160_dot.jpg',
+          'Designed for scars that run along the lower breast fold — there are no fabric seams there at all — with a breathable, soft terry lining against the skin. Cups A–E.',
+          ['compression', 'post-surgery']),
+        comp('Sydney Post-Mastectomy Compression Bra', '1091L_734_1091R_734_2114_007_016_dot.jpg',
+          'Made for after a mastectomy: an inner panel wraps the thorax to compress the scar area while leaving an opening for the unaffected breast, helping settle swelling. Cups A–D.',
+          ['compression', 'post-surgery']),
+        comp('Florence ReBelt Compression Panty', '1885_006_5787X_006_020_dot.jpg',
+          'Post-operative compression for the abdomen after abdominoplasty or a DIEP flap reconstruction — adjustable as you heal, and kind to your posture. Sizes 60–110 / 34–54.',
+          ['compression', 'post-surgery']),
+        comp('Ontario Compression Bandage', '2088_006_5726X_006_1426_006_107_dot.jpg',
+          'A versatile bandage for the thorax and abdomen after surgery, with even pressure distribution and a breathable fabric that stays comfortable all day. Sizes 0–7.',
+          ['compression', 'post-surgery']),
+        // ── Lymph O Fit — lymphedema relief garments ────────────
+        comp('London Lymph O Fit Bandage', 'Lymph-o-fit-bandage-1100-Anita-care-color.jpg',
+          'Lymph O Fit support for the chest and thoracic region, cut high in the back for 360° compression, with a dotted inner structure that gently massages and encourages drainage. Cups A–F.',
+          ['lymphedema', 'compression']),
+        comp('Helsinki Lymph O Fit Glove', '1113_001_104.jpg',
+          'A soft glove for mild lymphedema in the hand, with clean-cut finger edges that will not pinch and a shaped thumb root for even pressure across the back of the hand. Sizes 1–5.',
+          ['lymphedema', 'glove']),
+        comp('Halifax Lymph O Fit Arm Sleeve', '115_001_1100_001_1343_001_045__1_.jpg',
+          'An arm sleeve that continues over the hand, with a clean-cut finger edge, a gap at the thumb root, and flat seams that will not press. Sizes 0–5.',
+          ['lymphedema', 'sleeve']),
+        comp('Houston Lymph O Fit Arm Sleeve', '2140_001_1100_001_1343_001_041_crop_dot.jpg',
+          'A freely adjustable arm sleeve that fastens at the front, with gentle all-over compression and flat seams — also worn after a lymph node transplant. Sizes 1–5.',
+          ['lymphedema', 'sleeve']),
+        comp('Hamburg Lymph O Fit Arm Sleeve', '1114_001_1100_001_1343_001_061.jpg',
+          'A soft everyday sleeve for mild lymphedema in the arm — a non-slip cuff, flat seams, and a clean-cut wrist edge keep it easy to wear. Sizes 1–5.',
+          ['lymphedema', 'sleeve']),
+        comp('Dubai Lymph O Fit Compression Tights', '1100_007_2114_007_01_040_dot.jpg',
+          'Mild compression tights for the legs and groin, with the dotted massage structure and good moisture-wicking to keep the skin comfortable. Sizes 70–100.',
+          ['lymphedema', 'compression']),
       ];
     })(),
   },

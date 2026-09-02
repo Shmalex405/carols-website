@@ -94,9 +94,9 @@ export const categories: Category[] = [
   {
     slug: 'compression',
     title: 'Compression & Lymphedema',
-    short: 'Juzo sleeves, gauntlets & gloves — certified fitting',
+    short: 'Sleeves, gloves & post-surgical compression bras',
     description:
-      'Jen is certified in fitting lymphedema compression. Graduated-compression arm sleeves, gauntlets, and gloves from Juzo, measured and fitted for effective, comfortable, all-day support.',
+      'Jen is certified in fitting lymphedema compression. Graduated-compression arm sleeves, gauntlets, and gloves, plus post-surgical compression bras and bandages and the Anita Care Lymph O Fit line — measured and fitted for effective, comfortable, all-day support.',
     tint: ['#e4eae2', '#cadccd'],
   },
 ];

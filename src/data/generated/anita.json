@@ -640,5 +640,213 @@
       "post-surgery",
       "lightweight"
     ]
+  },
+  {
+    "id": "anita-almeria-compression-bra",
+    "name": "Almeria Compression Bra",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "A front-zip compression bra with a pull handle that makes it easy to fasten on tender days, and soft inner pockets on both sides for a first form or the foam cups it comes with. Sizes XS–XXL.",
+    "image": "/products/anita/almeria-compression-bra.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "compression",
+      "post-surgery"
+    ]
+  },
+  {
+    "id": "anita-leeds-compression-bra",
+    "name": "Leeds Compression Bra",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "Seamless pre-formed cups hold and steady the breast through the healing phase after surgery, easing pressure marks and supporting scar healing. Cups A–F.",
+    "image": "/products/anita/leeds-compression-bra.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "compression",
+      "post-surgery"
+    ]
+  },
+  {
+    "id": "anita-marbella-compression-bra",
+    "name": "Marbella Compression Bra",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "Cups of soft, stretchy cotton make this one especially kind to the skin — steadying the breast after plastic or reconstructive surgery while relieving the lymph pathways. Cups A, B/C, D/E.",
+    "image": "/products/anita/marbella-compression-bra.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "compression",
+      "post-surgery"
+    ]
+  },
+  {
+    "id": "anita-marbella-compression-bra-with-sevilla-post-op-belt",
+    "name": "Marbella Compression Bra with Sevilla Post-Op Belt",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "The Marbella bra paired with the “Sevilla” post-op belt for gentle abdominal compression as well — flexibly adjustable as you move through the healing process. Cups A, B/C, D/E.",
+    "image": "/products/anita/marbella-compression-bra-with-sevilla-post-op-belt.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "compression",
+      "post-surgery"
+    ]
+  },
+  {
+    "id": "anita-munich-compression-bra",
+    "name": "Munich Compression Bra",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "Steady, comfortable support after breast-conserving therapy or a reduction, lift, or reconstruction — shaped to avoid pressure points and tissue irritation. Cups AA/A–D/E.",
+    "image": "/products/anita/munich-compression-bra.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "compression",
+      "post-surgery"
+    ]
+  },
+  {
+    "id": "anita-valencia-compression-bra",
+    "name": "Valencia Compression Bra",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "A cotton-rich compression bra made for care after breast-conserving surgery, with controlled compression over the scar area and a soft, steadying fit. Cups A–E.",
+    "image": "/products/anita/valencia-compression-bra.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "compression",
+      "post-surgery"
+    ]
+  },
+  {
+    "id": "anita-osaka-compression-bra",
+    "name": "Osaka Compression Bra",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "Designed for scars that run along the lower breast fold — there are no fabric seams there at all — with a breathable, soft terry lining against the skin. Cups A–E.",
+    "image": "/products/anita/osaka-compression-bra.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "compression",
+      "post-surgery"
+    ]
+  },
+  {
+    "id": "anita-sydney-post-mastectomy-compression-bra",
+    "name": "Sydney Post-Mastectomy Compression Bra",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "Made for after a mastectomy: an inner panel wraps the thorax to compress the scar area while leaving an opening for the unaffected breast, helping settle swelling. Cups A–D.",
+    "image": "/products/anita/sydney-post-mastectomy-compression-bra.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "compression",
+      "post-surgery"
+    ]
+  },
+  {
+    "id": "anita-florence-rebelt-compression-panty",
+    "name": "Florence ReBelt Compression Panty",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "Post-operative compression for the abdomen after abdominoplasty or a DIEP flap reconstruction — adjustable as you heal, and kind to your posture. Sizes 60–110 / 34–54.",
+    "image": "/products/anita/florence-rebelt-compression-panty.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "compression",
+      "post-surgery"
+    ]
+  },
+  {
+    "id": "anita-ontario-compression-bandage",
+    "name": "Ontario Compression Bandage",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "A versatile bandage for the thorax and abdomen after surgery, with even pressure distribution and a breathable fabric that stays comfortable all day. Sizes 0–7.",
+    "image": "/products/anita/ontario-compression-bandage.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "compression",
+      "post-surgery"
+    ]
+  },
+  {
+    "id": "anita-london-lymph-o-fit-bandage",
+    "name": "London Lymph O Fit Bandage",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "Lymph O Fit support for the chest and thoracic region, cut high in the back for 360° compression, with a dotted inner structure that gently massages and encourages drainage. Cups A–F.",
+    "image": "/products/anita/london-lymph-o-fit-bandage.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "lymphedema",
+      "compression"
+    ]
+  },
+  {
+    "id": "anita-helsinki-lymph-o-fit-glove",
+    "name": "Helsinki Lymph O Fit Glove",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "A soft glove for mild lymphedema in the hand, with clean-cut finger edges that will not pinch and a shaped thumb root for even pressure across the back of the hand. Sizes 1–5.",
+    "image": "/products/anita/helsinki-lymph-o-fit-glove.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "lymphedema",
+      "glove"
+    ]
+  },
+  {
+    "id": "anita-halifax-lymph-o-fit-arm-sleeve",
+    "name": "Halifax Lymph O Fit Arm Sleeve",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "An arm sleeve that continues over the hand, with a clean-cut finger edge, a gap at the thumb root, and flat seams that will not press. Sizes 0–5.",
+    "image": "/products/anita/halifax-lymph-o-fit-arm-sleeve.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "lymphedema",
+      "sleeve"
+    ]
+  },
+  {
+    "id": "anita-houston-lymph-o-fit-arm-sleeve",
+    "name": "Houston Lymph O Fit Arm Sleeve",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "A freely adjustable arm sleeve that fastens at the front, with gentle all-over compression and flat seams — also worn after a lymph node transplant. Sizes 1–5.",
+    "image": "/products/anita/houston-lymph-o-fit-arm-sleeve.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "lymphedema",
+      "sleeve"
+    ]
+  },
+  {
+    "id": "anita-hamburg-lymph-o-fit-arm-sleeve",
+    "name": "Hamburg Lymph O Fit Arm Sleeve",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "A soft everyday sleeve for mild lymphedema in the arm — a non-slip cuff, flat seams, and a clean-cut wrist edge keep it easy to wear. Sizes 1–5.",
+    "image": "/products/anita/hamburg-lymph-o-fit-arm-sleeve.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "lymphedema",
+      "sleeve"
+    ]
+  },
+  {
+    "id": "anita-dubai-lymph-o-fit-compression-tights",
+    "name": "Dubai Lymph O Fit Compression Tights",
+    "brand": "anita",
+    "category": "compression",
+    "blurb": "Mild compression tights for the legs and groin, with the dotted massage structure and good moisture-wicking to keep the skin comfortable. Sizes 70–100.",
+    "image": "/products/anita/dubai-lymph-o-fit-compression-tights.webp",
+    "supplierUrl": "https://www.anita.com/en/anita-care/compression-bras-bandages.html",
+    "tags": [
+      "lymphedema",
+      "compression"
+    ]
   }
 ]
