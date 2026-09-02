@@ -1,5 +1,5 @@
 ---
-import { forms, booking, contact } from '../config';
+import { forms, booking, contact, insuranceOptions } from '../config';
 import { withBase } from '../lib/base';
 
 /**
@@ -69,7 +69,39 @@ const bookingUrl = booking.url;
           <option>Text message</option>
         </select>
       </label>
+
+      <label class="block">
+        <span class="text-sm font-semibold text-plum">Your insurance <span class="text-brand">*</span></span>
+        <select
+          required
+          id="insurance-select"
+          name="insurance"
+          class="mt-1.5 w-full rounded-xl border border-blush-deep/70 bg-cream/50 px-4 py-2.5 text-plum outline-none focus:border-brand focus:ring-2 focus:ring-brand/30"
+        >
+          <option value="" selected disabled>Please choose…</option>
+          {insuranceOptions.map((plan) => <option>{plan}</option>)}
+          <option>Other</option>
+          <option>None / paying myself</option>
+        </select>
+      </label>
+
+      <label id="insurance-other-wrap" class="hidden">
+        <span class="text-sm font-semibold text-plum">Which plan? <span class="text-brand">*</span></span>
+        <input
+          id="insurance-other"
+          name="insurance_other"
+          type="text"
+          disabled
+          placeholder="Name of your insurance"
+          class="mt-1.5 w-full rounded-xl border border-blush-deep/70 bg-cream/50 px-4 py-2.5 text-plum outline-none focus:border-brand focus:ring-2 focus:ring-brand/30"
+        />
+      </label>
     </div>
+
+    <p class="mt-3 text-xs text-plum-mute">
+      Knowing your plan lets Jen check your benefits before your visit — nothing is ordered or billed
+      until you say so, and we never share your information.
+    </p>
 
     <label class="mt-5 block">
       <span class="text-sm font-semibold text-plum">What are you interested in?</span>
@@ -147,6 +179,23 @@ const bookingUrl = booking.url;
     const product = params.get('product');
     if (product) interest.value = product;
   }
+
+  // "Other" insurance reveals a required free-text field. Keeping it disabled
+  // while hidden skips validation and leaves it out of the submitted data.
+  const insuranceSelect = document.getElementById('insurance-select') as HTMLSelectElement | null;
+  const insuranceOtherWrap = document.getElementById('insurance-other-wrap');
+  const insuranceOther = document.getElementById('insurance-other') as HTMLInputElement | null;
+
+  insuranceSelect?.addEventListener('change', () => {
+    const isOther = insuranceSelect.value === 'Other';
+    insuranceOtherWrap?.classList.toggle('hidden', !isOther);
+    if (insuranceOther) {
+      insuranceOther.disabled = !isOther;
+      insuranceOther.required = isOther;
+      if (!isOther) insuranceOther.value = '';
+      else insuranceOther.focus();
+    }
+  });
 
   function showError(msg: string) {
     if (!errorEl) return;

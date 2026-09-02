@@ -65,6 +65,25 @@ export const booking = {
 } as const;
 
 /**
+ * INSURANCE CARRIERS — shown as the required dropdown on the inquiry form.
+ * Add, remove, or reorder to match the plans Carol's works with. "Other" and
+ * "None" are appended automatically by the form, so don't list them here.
+ * When someone picks "Other", the form asks them to type their plan name.
+ */
+export const insuranceOptions = [
+  'Medicare',
+  'Medicaid (Utah)',
+  'SelectHealth',
+  'Regence BlueCross BlueShield',
+  'Aetna',
+  'Cigna',
+  'UnitedHealthcare',
+  'PEHP',
+  'University of Utah Health Plans',
+  'Tricare',
+] as const;
+
+/**
  * INQUIRY FORM — Web3Forms (free, no server needed, emails Jen directly).
  * 1. Go to https://web3forms.com, enter Jen@carolsutah.com, get an Access Key.
  * 2. Paste the key below. Submissions will be emailed to that address.
