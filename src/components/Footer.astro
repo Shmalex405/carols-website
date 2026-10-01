@@ -57,10 +57,11 @@ const year = 2026;
         <p>{contact.address.line2}</p>
         <p>{contact.address.city}, {contact.address.state} {contact.address.zip}</p>
       </address>
-      <dl class="mt-4 space-y-1 text-blush/80">
+      <!-- Day over time: the column is too narrow on desktop to fit both on one line -->
+      <dl class="mt-4 space-y-2 text-blush/80">
         {contact.hours.map((h) => (
-          <div class="flex justify-between gap-4">
-            <dt>{h.days}</dt>
+          <div>
+            <dt class="font-semibold text-blush">{h.days}</dt>
             <dd>{h.time}</dd>
           </div>
         ))}
@@ -72,8 +73,8 @@ const year = 2026;
     <div class="text-sm">
       <h2 class="font-display text-lg text-ivory">Connect</h2>
       <ul class="mt-4 space-y-2 text-blush/80">
-        <li><a class="no-underline hover:text-ivory hover:underline" href={contact.phoneHref}>{contact.phone}</a></li>
-        <li><a class="no-underline hover:text-ivory hover:underline" href={contact.emailHref}>{contact.email}</a></li>
+        <li><a class="text-blush/80 no-underline hover:text-ivory hover:underline" href={contact.phoneHref}>{contact.phone}</a></li>
+        <li><a class="text-blush/80 no-underline hover:text-ivory hover:underline" href={contact.emailHref}>{contact.email}</a></li>
       </ul>
       <div class="mt-4 flex gap-3">
         <a href={social.instagram} aria-label="Instagram" target="_blank" rel="noopener" class="text-blush/70 hover:text-ivory">Instagram</a>
