@@ -65,6 +65,20 @@ export const booking = {
 } as const;
 
 /**
+ * BREAST CANCER AWARENESS MONTH — seasonal ribbon bar (every page), a homepage
+ * feature, and a giveaway note on the Book page.
+ * It hides itself automatically once `endsOn` arrives — no redeploy needed.
+ * Set `enabled: false` to switch it off early; next October, just bump `endsOn`.
+ */
+export const awareness = {
+  enabled: true,
+  // First day the October content should NOT show (midnight, visitor's time).
+  endsOn: '2026-11-01',
+  // Jen's free gifts for October appointments. Shown as "…, and more".
+  giveaway: ['pink-ribbon pins', 'awareness socks', 'gift bags'],
+} as const;
+
+/**
  * INSURANCE CARRIERS — shown as the required dropdown on the inquiry form.
  * Add, remove, or reorder to match the plans Carol's works with. "Other" and
  * "None" are appended automatically by the form, so don't list them here.

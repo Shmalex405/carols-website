@@ -103,6 +103,11 @@
   }
 }
 
+/* Seasonal content (data-awareness) hides itself once its month ends — see BaseLayout. */
+html[data-awareness-over] [data-awareness] {
+  display: none !important;
+}
+
 /* Utility: constrain readable prose measure */
 @utility prose-measure {
   max-width: 68ch;

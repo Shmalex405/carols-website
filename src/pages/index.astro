@@ -1,9 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
-import { people, contact } from '../config';
+import RibbonIcon from '../components/RibbonIcon.astro';
+import PinkPumpkin from '../components/PinkPumpkin.astro';
+import AutumnLeaf from '../components/AutumnLeaf.astro';
+import { people, contact, awareness } from '../config';
 import { categories } from '../data/products';
 import { withBase } from '../lib/base';
+import { awarenessActive } from '../lib/awareness';
 
 const pillars = [
   {
@@ -50,7 +54,7 @@ const steps = [
           St. George, Utah · Since 1985
         </p>
         <h1 class="text-4xl leading-[1.08] sm:text-5xl lg:text-6xl">
-          Care that feels like being<br class="hidden sm:block" />
+          Care that feels like being<br class="hidden sm:block" />{' '}
           <span class="italic text-brand-deep">welcomed home.</span>
         </h1>
         <p class="mt-6 max-w-xl text-lg text-plum-soft">
@@ -62,7 +66,7 @@ const steps = [
           <Button href="/products" variant="ghost" size="lg">Explore Products</Button>
         </div>
         <p class="mt-6 text-sm text-plum-soft">
-          Prefer to talk? Call
+          Prefer to talk? Call{' '}
           <a href={contact.phoneHref} class="font-semibold text-brand-deep">{contact.phone}</a> —
           by appointment, Mon–Thu.
         </p>
@@ -89,6 +93,74 @@ const steps = [
       </div>
     </div>
   </section>
+
+  <!-- ──────────── Breast Cancer Awareness Month (October only) ──────────── -->
+  {awarenessActive && (
+    <section data-awareness aria-labelledby="awareness-heading" class="mx-auto max-w-6xl px-6 pt-16">
+      <div class="relative">
+      <div class="grid overflow-hidden rounded-[2rem] bg-ivory shadow-sm ring-1 ring-blush-deep/50 lg:grid-cols-[5fr_7fr]">
+        <div class="aspect-[4/3] lg:aspect-auto">
+          <img
+            src={withBase('/images/community.webp')}
+            width="1400"
+            height="1867"
+            loading="lazy"
+            alt="Jen with a group of breast cancer survivors at an October pumpkin patch, all wearing pink"
+            class="h-full w-full object-cover object-[center_40%]"
+          />
+        </div>
+        <div class="relative p-8 pb-14 sm:p-12 sm:pb-16">
+          <!-- a few falling leaves -->
+          <div aria-hidden="true" class="pointer-events-none absolute right-6 top-6 hidden sm:block">
+            <AutumnLeaf class="absolute right-0 top-0 h-12 w-12 rotate-[18deg] text-gold/70" />
+            <AutumnLeaf class="absolute right-16 top-8 h-9 w-9 -rotate-[24deg] text-brand-soft" />
+            <AutumnLeaf class="absolute right-4 top-16 h-7 w-7 rotate-[50deg] text-gold/50" />
+          </div>
+          <p class="relative flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-brand-deep">
+            <RibbonIcon class="h-5 w-5 shrink-0 text-brand" />
+            Breast Cancer Awareness Month
+          </p>
+          <h2 id="awareness-heading" class="relative mt-3 text-3xl sm:text-4xl">This October, we wear pink for you</h2>
+          <p class="mt-4 text-plum-soft">
+            October is a time to celebrate survivors, wrap our arms around women in treatment, and
+            remember those we’ve lost. It’s close to our hearts: Carol’s was founded by a survivor, and
+            for four decades we’ve walked alongside women at every step.
+          </p>
+
+          <div class="mt-7 rounded-2xl bg-blush/70 p-6 ring-1 ring-brand/15">
+            <h3 class="text-xl text-brand-deep">A thank-you gift from Jen</h3>
+            <p class="mt-2 text-plum-soft">
+              Every woman who comes in for an appointment during October goes home with a free gift —
+              a little something to say <em>we see you, and we’re cheering you on.</em>
+            </p>
+            <ul class="mt-4 flex flex-wrap gap-2" aria-label="Gifts include">
+              {awareness.giveaway.map((item) => (
+                <li class="inline-block rounded-full bg-ivory px-3.5 py-1 text-sm font-semibold text-brand-deep ring-1 ring-brand/20 first-letter:uppercase">
+                  {item}
+                </li>
+              ))}
+              <li class="inline-block rounded-full px-2 py-1 text-sm font-semibold text-plum-soft">&amp; more</li>
+            </ul>
+          </div>
+
+          <p class="mt-6 text-sm text-plum-soft">
+            And if you’ve been putting off a screening, let this be your gentle reminder — or pass it
+            along to a woman you love.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <Button href="/book" size="lg">Book Your October Visit</Button>
+          </div>
+        </div>
+      </div>
+      <!-- pink pumpkins resting on the card's edge -->
+      <div aria-hidden="true" class="pointer-events-none absolute -bottom-5 right-8 flex items-end sm:right-12">
+        <PinkPumpkin shade="blush" class="-mr-2 w-10 sm:-mr-3 sm:w-14" />
+        <PinkPumpkin shade="rose" ribbon class="z-10 w-14 sm:w-24" />
+        <PinkPumpkin shade="berry" class="-ml-3 w-11 sm:-ml-4 sm:w-16" />
+      </div>
+      </div>
+    </section>
+  )}
 
   <!-- ───────────────────── Reassurance pillars ───────────────────── -->
   <section class="mx-auto max-w-6xl px-6 py-16">

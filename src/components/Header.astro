@@ -2,6 +2,8 @@
 import { nav } from '../config';
 import Button from './Button.astro';
 import { withBase } from '../lib/base';
+import RibbonIcon from './RibbonIcon.astro';
+import { awarenessActive } from '../lib/awareness';
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 let rawPath = Astro.url.pathname;
@@ -15,7 +17,10 @@ const isActive = (href: string) =>
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
     <!-- Logo -->
     <a href={withBase('/')} class="group flex flex-col leading-none no-underline" aria-label="Carol's Post Mastectomy Specialist — Home">
-      <span class="font-display text-2xl font-medium text-brand-deep transition-colors group-hover:text-brand sm:text-[1.7rem]">Carol's</span>
+      <span class="flex items-center gap-1.5">
+        <span class="font-display text-2xl font-medium text-brand-deep transition-colors group-hover:text-brand sm:text-[1.7rem]">Carol's</span>
+        {awarenessActive && <span data-awareness class="text-brand"><RibbonIcon class="h-5 w-5" /></span>}
+      </span>
       <span class="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-plum-soft">Post Mastectomy Specialist</span>
     </a>
 

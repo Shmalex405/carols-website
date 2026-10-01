@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
+import PinkPumpkin from '../components/PinkPumpkin.astro';
 import { booking, contact } from '../config';
+import { awarenessActive, giveawayList } from '../lib/awareness';
 
 const bookingUrl = booking.url;
 const hasBooking = bookingUrl.length > 0;
@@ -29,6 +31,20 @@ const bring = [
       </p>
     </div>
   </section>
+
+  <!-- October giveaway (Breast Cancer Awareness Month) -->
+  {awarenessActive && (
+    <section data-awareness class="mx-auto max-w-4xl px-6 pt-6">
+      <div class="flex items-start gap-4 rounded-2xl border border-brand/25 bg-ivory p-5 shadow-sm sm:items-center sm:p-6">
+        <PinkPumpkin shade="rose" ribbon class="w-14 shrink-0" />
+        <p class="text-plum-soft">
+          <strong class="font-semibold text-plum">Booking in October?</strong>{' '}
+          In honor of Breast Cancer Awareness Month, every woman who comes in for an appointment this
+          month receives a free gift from Jen — {giveawayList}.
+        </p>
+      </div>
+    </section>
+  )}
 
   <!-- Booking -->
   <section class="mx-auto max-w-4xl px-6 py-6">
@@ -58,7 +74,7 @@ const bring = [
           </a>
         </div>
         <p class="mt-5 text-sm text-plum-mute">
-          Opens Jen’s secure booking calendar in a new tab. Prefer to talk?
+          Opens Jen’s secure booking calendar in a new tab. Prefer to talk?{' '}
           <a href={contact.phoneHref} class="font-semibold text-brand-deep">Call {contact.phone}</a>.
         </p>
       </div>

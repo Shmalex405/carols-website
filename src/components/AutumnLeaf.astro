@@ -1,0 +1,11 @@
+---
+/** Decorative maple leaf for October touches. Inherits the surrounding text color. */
+interface Props {
+  class?: string;
+}
+const { class: cls = 'h-6 w-6' } = Astro.props;
+---
+
+<svg class={cls} viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true">
+  <path d="M12 1.5 14.3 5.8 16.6 4.6 16.3 9.2 20.2 7 19.6 10.4 22.4 11.4 19.2 14 20 16 14.9 15.5 13.3 17.2 12.6 16.2 12.6 22.6 11.4 22.6 11.4 16.2 10.7 17.2 9.1 15.5 4 16 4.8 14 1.6 11.4 4.4 10.4 3.8 7 7.7 9.2 7.4 4.6 9.7 5.8z" />
+</svg>

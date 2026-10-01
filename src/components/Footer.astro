@@ -1,10 +1,25 @@
 ---
 import { site, contact, social, nav, people } from '../config';
 import { withBase } from '../lib/base';
+import PinkPumpkin from './PinkPumpkin.astro';
+import AutumnLeaf from './AutumnLeaf.astro';
+import { awarenessActive } from '../lib/awareness';
 const year = 2026;
 ---
 
-<footer class="mt-24 bg-plum text-blush">
+<footer class="relative mt-24 bg-plum text-blush">
+  <!-- October pumpkin patch sitting on the footer's top edge -->
+  {awarenessActive && (
+    <div data-awareness aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-full">
+      <div class="mx-auto flex max-w-6xl items-end justify-end px-6">
+        <AutumnLeaf class="mb-0.5 mr-2 h-7 w-7 -rotate-[70deg] text-gold/80" />
+        <PinkPumpkin shade="blush" class="-mr-2 w-10" />
+        <PinkPumpkin shade="rose" ribbon class="z-10 w-16" />
+        <PinkPumpkin shade="berry" class="-ml-3 w-12" />
+        <AutumnLeaf class="mb-0.5 ml-1 h-6 w-6 rotate-[60deg] text-brand-soft" />
+      </div>
+    </div>
+  )}
   <div class="mx-auto grid max-w-6xl gap-12 px-6 py-16 sm:grid-cols-2 lg:grid-cols-4">
     <!-- Brand -->
     <div class="lg:col-span-1">

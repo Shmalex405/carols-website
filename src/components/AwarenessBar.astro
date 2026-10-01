@@ -1,0 +1,21 @@
+---
+/** Site-wide October ribbon bar. Rendered by BaseLayout while the campaign is active. */
+import RibbonIcon from './RibbonIcon.astro';
+import { withBase } from '../lib/base';
+---
+
+<aside data-awareness aria-label="Breast Cancer Awareness Month" class="bg-brand-deep text-ivory">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-3 gap-y-1 px-6 py-2.5 text-center text-[0.8rem] sm:text-sm">
+    <RibbonIcon class="h-5 w-5 shrink-0 text-brand-soft" />
+    <p>
+      <strong class="font-semibold">October is Breast Cancer Awareness Month.</strong>{' '}
+      <span class="text-blush">Come in for an appointment this month and receive a free gift from Jen.</span>
+    </p>
+    <a
+      href={withBase('/book')}
+      class="whitespace-nowrap font-semibold text-ivory underline decoration-ivory/50 underline-offset-4 hover:decoration-ivory"
+    >
+      Book your visit →
+    </a>
+  </div>
+</aside>

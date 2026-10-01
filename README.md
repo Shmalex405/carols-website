@@ -32,6 +32,10 @@ Phone, fax, email, address, hours, social links, and the two integration slots:
 
 - **`booking.url`** — Jen's Microsoft Bookings page URL.
 - **`forms.web3formsAccessKey`** — the key that lets the inquiry form email Jen.
+- **`awareness`** — the October Breast Cancer Awareness Month content (ribbon bar, homepage
+  feature with Jen's giveaway, pink pumpkins in the footer, a note on the Book page).
+  `giveaway` lists the free gifts. It all hides itself automatically on `endsOn`, no redeploy
+  needed. Set `enabled: false` to turn it off early. Next October, bump `endsOn` a year and push.
 
 Change a value here and the whole site updates.
 
